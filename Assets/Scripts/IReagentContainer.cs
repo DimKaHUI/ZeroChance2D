@@ -8,8 +8,11 @@ namespace ZeroChance2D
     {
         float Volume { get; }
         float Amount { get; }
-        float TransferReagents(IReagentContainer target, float amount);
-        List<IReagent> AddReagents(IReagent[] reagents);
+        float SpaceLeft { get; }
+        List<Reagent> Reagents { get; }
+        float AddReagent(Reagent reagent);
+        void AddReagents(ref List<Reagent> inputReagents);
+        void NormalizeReagents();
         float FlushReagents();
     }
 }
