@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ZeroChance2D;
 
 [Serializable]
 public class Reagent
@@ -18,7 +20,7 @@ public class Reagent
             else
                 amount = 0;
         }
-    };
+    }
 
     public Reagent(string name, float amount)
     {
@@ -27,15 +29,38 @@ public class Reagent
     }
 }
 
-public class ReagentManager : MonoBehaviour {
+public class ReagentManager : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
 		
 	}
+
+    static void TransferReagents(IReagentContainer source, IReagentContainer target, float amount)
+    {
+        source.NormalizeReagents();
+        target.NormalizeReagents();
+
+        if (target.SpaceLeft < amount)
+            amount = target.SpaceLeft;
+
+        foreach (var reagent in source.Reagents)
+        {
+            float coef = reagent.Amount / source.Amount;
+            float toTransfer = amount * coef;
+            reagent.Amount -= toTransfer;
+            Reagent copy = new Reagent(reagent.Name, toTransfer);
+            target.AddReagent(copy);
+        }
+
+        source.NormalizeReagents();
+        target.NormalizeReagents();
+    }
+
 }
