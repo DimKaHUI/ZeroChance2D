@@ -8,9 +8,6 @@ namespace ZeroChance2D
     {
         string Forename { get; set; }
         string Surname { get; set; }
-
-        float WalkSpeed { get; set; }
-        float RunSpeed { get; set; }
     }
 
 }
