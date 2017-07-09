@@ -9,5 +9,6 @@ namespace ZeroChance2D
     {
         float Amount { get; set; }
         string Description { get; }
+        string ReagentName { get; }
     }
 }
