@@ -10,7 +10,8 @@ namespace ZeroChance2D
     {
         public float Volume;
 
-        protected List<Reagent> ReagentList = new List<Reagent>();
+        //public Reagent[] ReagentList = new Reagent[0];
+        public List<Reagent> ReagentList = new List<Reagent>();
 
         public virtual float AddReagent(Reagent reagent)
         {
@@ -22,12 +23,18 @@ namespace ZeroChance2D
             throw new NotImplementedException();
         }
 
+        public void NormalizeReagents()
+        {
+            
+        }
+
         public virtual float Amount { get { return ReagentManager.AmountOfReagents(ReagentList); } }
         public virtual float AvailableVolume { get { return Volume - Amount; } }
 
         public virtual float FlushReagents()
         {
             float amount = Amount;
+            //ReagentList = new Reagent[0];
             ReagentList = new List<Reagent>();
             return amount;
         }
