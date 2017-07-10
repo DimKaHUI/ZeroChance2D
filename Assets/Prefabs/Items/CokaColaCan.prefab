@@ -20,6 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4066471571463690}
   - component: {fileID: 212468604888686360}
+  - component: {fileID: 114339403378647902}
+  - component: {fileID: 114170068698391204}
+  - component: {fileID: 114168843822827426}
+  - component: {fileID: 114602077159636930}
   m_Layer: 0
   m_Name: CokaColaCan
   m_TagString: Untagged
@@ -34,12 +38,93 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1585134273411400}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.001, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &114168843822827426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585134273411400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 46
+    i1: 14
+    i2: 102
+    i3: 84
+    i4: 126
+    i5: 113
+    i6: 217
+    i7: 84
+    i8: 185
+    i9: 30
+    i10: 206
+    i11: 218
+    i12: 159
+    i13: 132
+    i14: 50
+    i15: 18
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114170068698391204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585134273411400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766b6447abaea5641b383cd8851d504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlotSize: 2
+  Weight: 0.1
+--- !u!114 &114339403378647902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585134273411400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75316bce419a7634fa36508d5e3e88c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Volume: 0
+  ReagentList:
+  - Amount: 330
+    Name: Coca Cola
+--- !u!114 &114602077159636930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585134273411400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!212 &212468604888686360
 SpriteRenderer:
   m_ObjectHideFlags: 1
