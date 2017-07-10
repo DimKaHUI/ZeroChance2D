@@ -21,7 +21,7 @@ namespace ZeroChance2D
 
         private Rigidbody2D rig;
         private GameObject camera;
-        private Vector3 prevMousePos;
+        private Vector3 prevOffset;
 
         // Use this for initialization
         void Start()
@@ -29,7 +29,7 @@ namespace ZeroChance2D
             camera = GameObject.FindGameObjectWithTag("MainCamera");
             if(camera == null)
                 Debug.LogError("Camera not found!");
-            prevMousePos = Input.mousePosition;
+            prevOffset = Vector3.zero;
         }
 
 
@@ -49,11 +49,14 @@ namespace ZeroChance2D
                 {
                     CurrentMode = ControllMode.Interaction;
                     Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    prevOffset = Vector3.zero;
                 }
                 else
                 {
                     CurrentMode = ControllMode.Shooting;
                     Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
                 }
                 Debug.Log("Mode changed");
             }
@@ -82,11 +85,15 @@ namespace ZeroChance2D
                                             CameraRelativePosition;
             if (CurrentMode == ControllMode.Shooting)
             {
-
-                camera.transform.position = new Vector3(pos.x, pos.y, CameraRelativePosition.z) + (Input.mousePosition - prevMousePos) * AimSensitivity;
+                float move_x = Input.GetAxis("Mouse X");
+                float move_y = Input.GetAxis("Mouse Y");
+                Debug.Log(new Vector2(move_x, move_y));
+                //camera.transform.position = new Vector3(pos.x, pos.y, CameraRelativePosition.z) + (Input.mousePosition - prevMousePos) * AimSensitivity;
+                prevOffset += new Vector3(move_x, move_y, 0) * AimSensitivity;
+                camera.transform.position = new Vector3(pos.x, pos.y, CameraRelativePosition.z) + prevOffset;
             }
 
-            prevMousePos = Input.mousePosition;
+            
 
 
         }
