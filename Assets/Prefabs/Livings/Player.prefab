@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212645983516496328}
   - component: {fileID: 114781133316644044}
   - component: {fileID: 114652658324595916}
+  - component: {fileID: 50261453096545068}
+  - component: {fileID: 114803730755491586}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -42,6 +44,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50261453096545068
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861424535875602}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &114652658324595916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,6 +117,47 @@ MonoBehaviour:
     i15: 201
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114803730755491586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861424535875602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e05937194bd1a65428c4e77816bc0464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkSpeed: 4
+  RunSpeed: 8
+  LifeParams:
+    BrainHealth: 100
+    ToxinDamage: 0
+    HeadDamage:
+      Brute: 0
+      Burn: 0
+    LeftHanDamage:
+      Brute: 0
+      Burn: 0
+    RightHandDamage:
+      Brute: 0
+      Burn: 0
+    LeftLegDamage:
+      Brute: 0
+      Burn: 0
+    RightLegDamage:
+      Brute: 0
+      Burn: 0
+    ChestDamage:
+      Brute: 0
+      Burn: 0
+    GroinDamage:
+      Brute: 0
+      Burn: 0
+  SleepThresold: 100
+  Nutrition: 100
+  State: 0
+  RotationSpeed: 120
 --- !u!212 &212645983516496328
 SpriteRenderer:
   m_ObjectHideFlags: 1
