@@ -49,6 +49,13 @@ namespace ZeroChance2D
     {
         Standing, Lying
     }
+
+    public class Equipment
+    {
+        public Item LeftHandItem;
+        public Item RightHandItem;
+    }
+
     [Serializable]
     public class Human : NetworkBehaviour
     {
