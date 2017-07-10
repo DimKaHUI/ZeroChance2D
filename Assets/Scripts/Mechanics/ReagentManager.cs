@@ -9,25 +9,13 @@ namespace ZeroChance2D
     [Serializable]
     public class Reagent
     {
-        private float amount;
-        public readonly string Name;
-
-        public float Amount
-        {
-            get { return amount; }
-            set
-            {
-                if (value >= 0)
-                    amount = value;
-                else
-                    amount = 0;
-            }
-        }
+        public float Amount;
+        public string Name;
 
         public Reagent(string name, float amount)
         {
             Name = name;
-            this.amount = amount;
+            this.Amount = amount;
         }
     }
 
@@ -41,18 +29,18 @@ namespace ZeroChance2D
 
         void Update()
         {
-
+            
         }
 
-        static void TransferReagents(IReagentContainer source, IReagentContainer target, float amount)
+        static void TransferReagents(ReagentContainer source, ReagentContainer target, float amount)
         {
             source.NormalizeReagents();
             target.NormalizeReagents();
 
-            if (target.SpaceLeft < amount)
-                amount = target.SpaceLeft;
+            if (target.AvailableVolume < amount)
+                amount = target.AvailableVolume;
 
-            foreach (var reagent in source.Reagents)
+            foreach (var reagent in source.ReagentList)
             {
                 float coef = reagent.Amount / source.Amount;
                 float toTransfer = amount * coef;
