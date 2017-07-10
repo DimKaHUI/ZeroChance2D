@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Immovables
+    uniqueID: 344842457
+    locked: 0
+  - name: Movables
+    uniqueID: 2293623077
+    locked: 0
+  - name: Items
+    uniqueID: 2945114475
+    locked: 0
+  - name: Livings
+    uniqueID: 821242019
+    locked: 0
