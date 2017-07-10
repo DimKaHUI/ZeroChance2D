@@ -32,36 +32,5 @@ namespace ZeroChance2D
         {
             
         }
-
-        static void TransferReagents(ReagentContainer source, ReagentContainer target, float amount)
-        {
-            source.NormalizeReagents();
-            target.NormalizeReagents();
-
-            if (target.AvailableVolume < amount)
-                amount = target.AvailableVolume;
-
-            foreach (var reagent in source.ReagentList)
-            {
-                float coef = reagent.Amount / source.Amount;
-                float toTransfer = amount * coef;
-                reagent.Amount -= toTransfer;
-                Reagent copy = new Reagent(reagent.Name, toTransfer);
-                target.AddReagent(copy);
-            }
-
-            source.NormalizeReagents();
-            target.NormalizeReagents();
-        }
-
-        public static float AmountOfReagents(IEnumerable<Reagent> inputReagents)
-        {
-            float amount = 0;
-            foreach (var reagent in inputReagents)
-            {
-                amount += reagent.Amount;
-            }
-            return amount;
-        }
     }
 }
