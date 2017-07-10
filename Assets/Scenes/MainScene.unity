@@ -1369,10 +1369,10 @@ MonoBehaviour:
   RightHandImage: {fileID: 0}
   HealthIndicator: {fileID: 0}
   ActiveHand: 1
-  CurrentMode: 1
+  CurrentMode: 0
   CameraRelativePosition: {x: 0, y: 0, z: -10}
   CameraVelocityOffset: 1
-  AimSensitivity: 0.01
+  AimSensitivity: 0.25
 --- !u!114 &1766691385
 MonoBehaviour:
   m_ObjectHideFlags: 0
