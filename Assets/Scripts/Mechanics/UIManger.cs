@@ -75,9 +75,15 @@ namespace ZeroChance2D
                 float forward = Input.GetAxis("Vertical");
                 float turn = Input.GetAxis("Horizontal");
                 rig.velocity = rig.gameObject.transform.up * attachedPlayerController.WalkSpeed * forward;
+
+                Ray ray = camera.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                var point = ray.GetPoint(CameraRelativePosition.z);
+                
+                float angle = Mathf.Atan2(point.y - pos.y, point.x - pos.x);
+                //Debug.Log(angle * Mathf.Rad2Deg);
                 rig.gameObject.transform.rotation =
-                    Quaternion.Euler(0, 0, rig.gameObject.transform.rotation.eulerAngles.z);
-                rig.angularVelocity = -turn * attachedPlayerController.RotationSpeed;
+                    Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg - 90);
+
             }
 
             if (CurrentMode == ControllMode.Interaction)
@@ -87,8 +93,6 @@ namespace ZeroChance2D
             {
                 float move_x = Input.GetAxis("Mouse X");
                 float move_y = Input.GetAxis("Mouse Y");
-                Debug.Log(new Vector2(move_x, move_y));
-                //camera.transform.position = new Vector3(pos.x, pos.y, CameraRelativePosition.z) + (Input.mousePosition - prevMousePos) * AimSensitivity;
                 prevOffset += new Vector3(move_x, move_y, 0) * AimSensitivity;
                 camera.transform.position = new Vector3(pos.x, pos.y, CameraRelativePosition.z) + prevOffset;
             }
