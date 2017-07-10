@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using ZeroChance2D;
 
 namespace ZeroChance2D
@@ -19,7 +20,7 @@ namespace ZeroChance2D
         }
     }
 
-    public class ReagentManager : MonoBehaviour
+    public class ReagentManager : NetworkBehaviour
     {
 
         void Start()
