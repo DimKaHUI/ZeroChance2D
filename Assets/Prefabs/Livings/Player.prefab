@@ -157,7 +157,7 @@ MonoBehaviour:
   SleepThresold: 100
   Nutrition: 100
   State: 0
-  RotationSpeed: 120
+  RotationSpeed: 180
 --- !u!212 &212645983516496328
 SpriteRenderer:
   m_ObjectHideFlags: 1
