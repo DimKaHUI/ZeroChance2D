@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -9,20 +12,25 @@ namespace ZeroChance2D
     public enum ControllMode { Interaction, Shooting}
     public class UIManger : NetworkBehaviour
     {
+        public NetworkManager NetManager;
         public Image LeftHandImage;
         public Image RightHandImage;
         public Image HealthIndicator;
         public HandSide ActiveHand;
         public ControllMode CurrentMode;
-        private PlayerController attachedPlayerController;
+        private PlayerController Controller;
         public Vector3 CameraRelativePosition;
         public float CameraVelocityOffset;
         public float AimSensitivity;
+        public float ItemPickRange = 30f;
 
         private Rigidbody2D rig;
         private GameObject cameraObject;
         private Vector3 prevOffset;
+
         private Item itemUnderCursor;
+        private GameObject movableUnderCursor;
+        private GameObject livingUnderCursor;
 
         // Use this for initialization
         void Start()
@@ -31,17 +39,21 @@ namespace ZeroChance2D
             if(cameraObject == null)
                 Debug.LogError("Camera not found!");
             prevOffset = Vector3.zero;
+
+            if(NetManager == null)
+                Debug.LogError("No network manager attached!");
         }
 
 
         void FixedUpdate()
         {
             #region Movement and camera controlling
-            Vector3 pos = attachedPlayerController.gameObject.transform.position;
+            Vector3 pos = Controller.gameObject.transform.position;
+            
 
-            if (attachedPlayerController == null)
+            if (Controller == null)
             {
-                Debug.Log(attachedPlayerController);
+                Debug.Log(Controller);
                 return;
             }
 
@@ -67,16 +79,16 @@ namespace ZeroChance2D
             {
                 float forward = Input.GetAxis("Vertical");
                 float turn = Input.GetAxis("Horizontal");
-                rig.velocity = rig.gameObject.transform.up * attachedPlayerController.WalkSpeed * forward;
+                rig.velocity = rig.gameObject.transform.up * Controller.WalkSpeed * forward;
                 rig.gameObject.transform.rotation =
                     Quaternion.Euler(0, 0, rig.gameObject.transform.rotation.eulerAngles.z);
-                rig.angularVelocity = -turn * attachedPlayerController.RotationSpeed;
+                rig.angularVelocity = -turn * Controller.RotationSpeed;
             }
             if (CurrentMode == ControllMode.Shooting)
             {
                 float forward = Input.GetAxis("Vertical");
                 float turn = Input.GetAxis("Horizontal");
-                rig.velocity = rig.gameObject.transform.up * attachedPlayerController.WalkSpeed * forward;
+                rig.velocity = rig.gameObject.transform.up * Controller.WalkSpeed * forward;
 
                 Ray ray = cameraObject.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
                 var point = ray.GetPoint(CameraRelativePosition.z);
@@ -99,25 +111,81 @@ namespace ZeroChance2D
             }
 #endregion
 
+            #region Finding objects under cursor
+            var clickPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            clickPoint.z = Controller.gameObject.transform.position.z;
+
+            bool hitUI = RaycastWorldUI();
+
+            var hitItem = Physics2D.Raycast(clickPoint, new Vector2(0, 0), Mathf.Infinity, LayerMask.NameToLayer("Items"));
+            itemUnderCursor = hitItem.collider == null ? null : hitItem.collider.gameObject.GetComponent<Item>();
+
+            var hitMovable = Physics2D.Raycast(clickPoint, new Vector2(0, 0), Mathf.Infinity, LayerMask.NameToLayer("Movables"));
+            movableUnderCursor = hitMovable.collider == null ? null : hitItem.collider.gameObject;
+
+            var hitLiving = Physics2D.Raycast(clickPoint, new Vector2(0, 0), Mathf.Infinity, LayerMask.NameToLayer("Livings"));
+            livingUnderCursor = hitLiving.collider == null ? null : hitItem.collider.gameObject;
+
+#endregion
+
             #region Item picking
 
             if (CurrentMode == ControllMode.Interaction)
             {
-                RaycastHit2D hitItem;
+                
 
-                hitItem = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0, 0),
-                    Mathf.Infinity);
-                if (hitItem.collider == null)
-                    itemUnderCursor = null;
-                else
+                if (Input.GetMouseButtonDown(0) && !hitUI)
                 {
-                    itemUnderCursor = hitItem.collider.gameObject.GetComponent<Item>();
-                    Debug.Log(itemUnderCursor.ItemName);
+                    if (itemUnderCursor != null && Vector2.Distance(Controller.transform.position, itemUnderCursor.gameObject.transform.position) <= ItemPickRange) // If cursor is upon an item
+                    {
+                        switch (ActiveHand)
+                        {
+                            case HandSide.Right:
+                                if (Controller.Equipment.RightHandItem == null)
+                                {
+                                    itemUnderCursor.gameObject.SetActive(false);
+                                    Controller.Equipment.RightHandItem = itemUnderCursor;
+                                }
+                                break;
+                            case HandSide.Left:
+                                if (Controller.Equipment.LeftHandItem == null)
+                                {
+                                    itemUnderCursor.gameObject.SetActive(false);
+                                    Controller.Equipment.LeftHandItem = itemUnderCursor;
+                                }
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                    else if( Vector2.Distance(Controller.transform.position, clickPoint) <= ItemPickRange)
+                    {
+                        switch (ActiveHand)
+                        {
+                            case HandSide.Left:
+                                if (Controller.Equipment.LeftHandItem != null)
+                                {
+                                    Controller.Equipment.LeftHandItem.gameObject.SetActive(true);
+                                    Controller.Equipment.LeftHandItem.gameObject.transform.position = clickPoint;
+                                    Controller.Equipment.LeftHandItem = null;
+                                }
+                                break;
+                            case HandSide.Right:
+                                if (Controller.Equipment.RightHandItem != null)
+                                {
+                                    Controller.Equipment.RightHandItem.gameObject.SetActive(true);
+                                    Controller.Equipment.RightHandItem.gameObject.transform.position = clickPoint;
+
+                                    Controller.Equipment.RightHandItem = null;
+                                }
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
                 }
+
             }
-
-            
-
             #endregion
 
 
@@ -126,14 +194,34 @@ namespace ZeroChance2D
 
         public PlayerController AttachedController
         {
-            get { return attachedPlayerController; }
+            get { return Controller; }
             set
             {
-                attachedPlayerController = value;
+                Controller = value;
                 rig = value.gameObject.GetComponent<Rigidbody2D>();
             }
         }
 
-    
+        bool RaycastWorldUI()
+        {
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+
+            pointerData.position = Input.mousePosition;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            if (results.Count > 0)
+            {
+                foreach (var res in results)
+                {
+                    if (res.gameObject.layer == LayerMask.NameToLayer("UI"))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+
     }
 }
