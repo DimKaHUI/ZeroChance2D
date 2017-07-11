@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ZeroChance2D
 {
+    [RequireComponent(typeof(Collider2D))]
     public class ColaCan : Item
     {
 
