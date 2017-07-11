@@ -201,17 +201,53 @@ namespace ZeroChance2D
             if (Controller != null && Controller.Equipment != null)
             {
                 if (Controller.Equipment.LeftHandItem != null)
-                    LeftItemImage.texture = Controller.Equipment.LeftHandItem.gameObject.GetComponent<SpriteRenderer>()
+                {
+                   // TODO
+                    var image = Controller.Equipment.LeftHandItem.gameObject.GetComponent<SpriteRenderer>()
                         .sprite.texture;
+                    var imageSize = new Vector2(image.width, image.height);
+
+                    if (imageSize.x > imageSize.y)
+                    {
+                        float coef = imageSize.y / imageSize.x;
+                        LeftItemImage.rectTransform.sizeDelta = new Vector2(55, 55 * coef);
+                    }
+                    else
+                    {
+                        float coef = imageSize.x / imageSize.y;
+                        LeftItemImage.rectTransform.sizeDelta = new Vector2(55 * coef, 55);
+                    }
+
+                    LeftItemImage.texture = image;
+                }
                 else
                     LeftItemImage.texture = null;
 
+
                 if (Controller.Equipment.RightHandItem != null)
-                    RightItemImage.texture = Controller.Equipment.RightHandItem.gameObject
-                        .GetComponent<SpriteRenderer>()
+                {
+                    var image = Controller.Equipment.RightHandItem.gameObject.GetComponent<SpriteRenderer>()
                         .sprite.texture;
+                    var imageSize = new Vector2(image.width, image.height);
+
+                    if (imageSize.x > imageSize.y)
+                    {
+                        float coef = imageSize.y / imageSize.x;
+                        RightItemImage.rectTransform.sizeDelta = new Vector2(55, 55 * coef);
+                    }
+                    else
+                    {
+                        float coef = imageSize.x / imageSize.y;
+                        RightItemImage.rectTransform.sizeDelta = new Vector2(55 * coef, 55);
+                    }
+
+                    RightItemImage.texture = image;
+                   
+                }
                 else
                     RightItemImage.texture = null;
+
+
             }
         }
 
