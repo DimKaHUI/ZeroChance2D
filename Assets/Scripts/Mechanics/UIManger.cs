@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace ZeroChance2D
 {
-
+    [Serializable]
     public enum HandSide { Left, Right}
     public enum ControllMode { Interaction, Shooting}
     public class UIManger : NetworkBehaviour
@@ -246,6 +246,14 @@ namespace ZeroChance2D
             return false;
         }
 
-
+        public void SelectHand(bool RightSide)
+        {
+            if(RightSide)
+                ActiveHand = HandSide.Right;
+            else
+            {
+                ActiveHand = HandSide.Left;
+            }
+        }
     }
 }
