@@ -11,6 +11,16 @@ namespace ZeroChance2D
         public float Weight;
         public string ItemName;
 
+        public virtual void Use(GameObject user, GameObject target = null)
+        {
+            
+        }
+
+        public virtual void Use(GameObject user, Vector2 targetPoint)
+        {
+            
+        }
+
         // Use this for initialization
         void Start()
         {
