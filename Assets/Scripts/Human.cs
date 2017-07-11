@@ -50,28 +50,29 @@ namespace ZeroChance2D
         Standing, Lying
     }
 
+    [Serializable]
     public class Equipment
     {
         public Item LeftHandItem;
         public Item RightHandItem;
-
-        public Equipment()
-        {
-            LeftHandItem = null;
-            RightHandItem = null;
-        }
     }
 
     [Serializable]
     public class Human : NetworkBehaviour
     {
-
+        [SyncVar]
         public float WalkSpeed;
+        [SyncVar]
         public float RunSpeed;
-        public LifeSystem LifeParams;
+        [SyncVar]
+        public LifeSystem LifeParams = new LifeSystem();
+        [SyncVar]
         public float SleepThresold = 100f;
+        [SyncVar]
         public float Nutrition = 100f;
+        [SyncVar]
         public State State;
+        //[SyncVar]
         public Equipment Equipment = new Equipment();
 
     }
