@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SlotSize: 2
-  Weight: 1
+  Weight: 0.001
   ItemName: Can of Cola
 --- !u!212 &212468604888686360
 SpriteRenderer:
