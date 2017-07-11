@@ -10,6 +10,8 @@ namespace ZeroChance2D
     {
         public int MaxSlots;
         public List<Item> StoredList;
+        public string MandatoryItemName;
+        public int MaximumItemSize;
 
         public int FreeSpace
         {
@@ -24,12 +26,16 @@ namespace ZeroChance2D
             }
         }
 
-        public virtual bool AddItem(Item item)
+        public virtual TransferResult AddItem(Item item)
         {
+            if (item.ItemName != MandatoryItemName && MandatoryItemName != "")
+                return TransferResult.UnsuitableItem;
+            if (item.SlotSize > MaximumItemSize)
+                return TransferResult.TooLargeItem;
             if (FreeSpace >= MaxSlots)
-                return false;
+                return TransferResult.NoFreeSpace;
             StoredList.Add(item);
-            return true;
+            return TransferResult.Success;
         }
 
         public virtual bool RemoveItem(Item item)
@@ -39,6 +45,10 @@ namespace ZeroChance2D
 
         public static TransferResult TransferItem(Storage source, Storage target, Item item)
         {
+            if (item.ItemName != target.MandatoryItemName && target.MandatoryItemName != "")
+                return TransferResult.UnsuitableItem;
+            if(item.SlotSize > target.MaximumItemSize)
+                return TransferResult.TooLargeItem;
             if (!source.StoredList.Contains(item))
                 return TransferResult.SourceHasNoItem;
             if(target.FreeSpace > item.SlotSize)
@@ -47,6 +57,6 @@ namespace ZeroChance2D
             target.StoredList.Add(item);
             return TransferResult.Success;
         }
-        public enum TransferResult { Success, SourceHasNoItem, NoFreeSpace}
+        public enum TransferResult { Success, SourceHasNoItem, NoFreeSpace, UnsuitableItem, TooLargeItem}
     }
 }
