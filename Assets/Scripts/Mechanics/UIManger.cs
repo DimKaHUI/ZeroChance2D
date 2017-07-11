@@ -15,6 +15,8 @@ namespace ZeroChance2D
         public NetworkManager NetManager;
         public Image LeftHandImage;
         public Image RightHandImage;
+        public RawImage LeftItemImage;
+        public RawImage RightItemImage;
         public Image HealthIndicator;
         public HandSide ActiveHand;
         public ControllMode CurrentMode;
@@ -32,6 +34,8 @@ namespace ZeroChance2D
         private GameObject movableUnderCursor;
         private GameObject livingUnderCursor;
 
+        
+
         // Use this for initialization
         void Start()
         {
@@ -47,7 +51,7 @@ namespace ZeroChance2D
 
         void FixedUpdate()
         {
-            #region Movement and camera controlling
+#region Movement and camera controlling
             Vector3 pos = Controller.gameObject.transform.position;
             
 
@@ -111,7 +115,7 @@ namespace ZeroChance2D
             }
 #endregion
 
-            #region Finding objects under cursor
+#region Finding objects under cursor
             var clickPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             clickPoint.z = Controller.gameObject.transform.position.z;
 
@@ -126,9 +130,9 @@ namespace ZeroChance2D
             var hitLiving = Physics2D.Raycast(clickPoint, new Vector2(0, 0), Mathf.Infinity, LayerMask.NameToLayer("Livings"));
             livingUnderCursor = hitLiving.collider == null ? null : hitItem.collider.gameObject;
 
-#endregion
+            #endregion
 
-            #region Item picking
+#region Item picking
 
             if (CurrentMode == ControllMode.Interaction)
             {
@@ -189,6 +193,26 @@ namespace ZeroChance2D
             #endregion
 
 
+        }
+
+        void Update()
+        {
+            // Drawing sprites
+            if (Controller != null && Controller.Equipment != null)
+            {
+                if (Controller.Equipment.LeftHandItem != null)
+                    LeftItemImage.texture = Controller.Equipment.LeftHandItem.gameObject.GetComponent<SpriteRenderer>()
+                        .sprite.texture;
+                else
+                    LeftItemImage.texture = null;
+
+                if (Controller.Equipment.RightHandItem != null)
+                    RightItemImage.texture = Controller.Equipment.RightHandItem.gameObject
+                        .GetComponent<SpriteRenderer>()
+                        .sprite.texture;
+                else
+                    RightItemImage.texture = null;
+            }
         }
 
 
