@@ -11,12 +11,11 @@ namespace ZeroChance2D
         public enum WeaponShootingMode{Auto, SemiAuto}
         public int ShootsPerMinute;
         public WeaponShootingMode ShootingMode;
-        public Clip InsertedClip;
+        public AmmoClip InsertedClip;
+        public AudioClip[] ShootAudioClips;
+        public AudioClip ReloadAudioClip;
 
         public float ScatterAngle;
-        /// <summary>
-        /// Bullet speed in meters per second
-        /// </summary>
         public float InitialBulletSpeed;
         
     }
