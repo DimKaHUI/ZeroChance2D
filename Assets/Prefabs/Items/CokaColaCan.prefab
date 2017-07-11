@@ -20,10 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4066471571463690}
   - component: {fileID: 212468604888686360}
-  - component: {fileID: 114339403378647902}
-  - component: {fileID: 114170068698391204}
   - component: {fileID: 114168843822827426}
   - component: {fileID: 114602077159636930}
+  - component: {fileID: 114339403378647902}
+  - component: {fileID: 60682960814006114}
+  - component: {fileID: 114433173654418648}
   m_Layer: 0
   m_Name: CokaColaCan
   m_TagString: Untagged
@@ -37,13 +38,49 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1585134273411400}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &60682960814006114
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585134273411400}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0.74, y: 0.22, z: 0.61, w: 0.14999999}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.62, y: 1.12}
+      - {x: 0.41, y: 1.16}
+      - {x: -0.26999998, y: 1.16}
+      - {x: -0.37, y: 1.15}
+      - {x: -0.51, y: 1.0699999}
+      - {x: -0.56, y: 0.78999996}
+      - {x: -0.56, y: -0.96}
+      - {x: -0.32999998, y: -1.09}
+      - {x: 0.45999998, y: -1.09}
+      - {x: 0.63, y: -0.96999997}
+      - {x: 0.69, y: -0.84999996}
+      - {x: 0.69, y: 0.78999996}
 --- !u!114 &114168843822827426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,19 +113,6 @@ MonoBehaviour:
     i15: 18
   m_ServerOnly: 1
   m_LocalPlayerAuthority: 0
---- !u!114 &114170068698391204
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1585134273411400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 766b6447abaea5641b383cd8851d504e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlotSize: 2
-  Weight: 0.1
 --- !u!114 &114339403378647902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -104,6 +128,20 @@ MonoBehaviour:
   ReagentList:
   - Amount: 330
     Name: Coca Cola
+--- !u!114 &114433173654418648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585134273411400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766b6447abaea5641b383cd8851d504e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SlotSize: 2
+  Weight: 0.1
+  ItemName: Can of Cola
 --- !u!114 &114602077159636930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,8 +192,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1349852821
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bae7b710d59e3b444b6d6d0f3f7b7bfb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
