@@ -54,6 +54,12 @@ namespace ZeroChance2D
     {
         public Item LeftHandItem;
         public Item RightHandItem;
+
+        public Equipment()
+        {
+            LeftHandItem = null;
+            RightHandItem = null;
+        }
     }
 
     [Serializable]
@@ -66,6 +72,7 @@ namespace ZeroChance2D
         public float SleepThresold = 100f;
         public float Nutrition = 100f;
         public State State;
+        public Equipment Equipment = new Equipment();
 
     }
 }
