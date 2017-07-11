@@ -20,14 +20,15 @@ namespace ZeroChance2D
         public float AimSensitivity;
 
         private Rigidbody2D rig;
-        private GameObject camera;
+        private GameObject cameraObject;
         private Vector3 prevOffset;
+        private Item itemUnderCursor;
 
         // Use this for initialization
         void Start()
         {
-            camera = GameObject.FindGameObjectWithTag("MainCamera");
-            if(camera == null)
+            cameraObject = GameObject.FindGameObjectWithTag("MainCamera");
+            if(cameraObject == null)
                 Debug.LogError("Camera not found!");
             prevOffset = Vector3.zero;
         }
@@ -35,6 +36,7 @@ namespace ZeroChance2D
 
         void FixedUpdate()
         {
+            #region Movement and camera controlling
             Vector3 pos = attachedPlayerController.gameObject.transform.position;
 
             if (attachedPlayerController == null)
@@ -76,28 +78,47 @@ namespace ZeroChance2D
                 float turn = Input.GetAxis("Horizontal");
                 rig.velocity = rig.gameObject.transform.up * attachedPlayerController.WalkSpeed * forward;
 
-                Ray ray = camera.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                Ray ray = cameraObject.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
                 var point = ray.GetPoint(CameraRelativePosition.z);
                 
                 float angle = Mathf.Atan2(point.y - pos.y, point.x - pos.x);
-                //Debug.Log(angle * Mathf.Rad2Deg);
                 rig.gameObject.transform.rotation =
                     Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg - 90);
 
             }
 
             if (CurrentMode == ControllMode.Interaction)
-                camera.transform.position = pos +
+                cameraObject.transform.position = pos +
                                             CameraRelativePosition;
             if (CurrentMode == ControllMode.Shooting)
             {
                 float move_x = Input.GetAxis("Mouse X");
                 float move_y = Input.GetAxis("Mouse Y");
                 prevOffset += new Vector3(move_x, move_y, 0) * AimSensitivity;
-                camera.transform.position = new Vector3(pos.x, pos.y, CameraRelativePosition.z) + prevOffset;
+                cameraObject.transform.position = new Vector3(pos.x, pos.y, CameraRelativePosition.z) + prevOffset;
+            }
+#endregion
+
+            #region Item picking
+
+            if (CurrentMode == ControllMode.Interaction)
+            {
+                RaycastHit2D hitItem;
+
+                hitItem = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0, 0),
+                    Mathf.Infinity);
+                if (hitItem.collider == null)
+                    itemUnderCursor = null;
+                else
+                {
+                    itemUnderCursor = hitItem.collider.gameObject.GetComponent<Item>();
+                    Debug.Log(itemUnderCursor.ItemName);
+                }
             }
 
             
+
+            #endregion
 
 
         }
