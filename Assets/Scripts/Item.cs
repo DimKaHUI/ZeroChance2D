@@ -7,7 +7,6 @@ namespace ZeroChance2D
     [RequireComponent(typeof(Collider2D))]
     public class Item : MonoBehaviour
     {
-
         public int SlotSize;
         public float Weight;
         public string ItemName;
