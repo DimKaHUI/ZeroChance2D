@@ -39,15 +39,6 @@ namespace ZeroChance2D
         [Command]
         void CmdSendEquipmentToServer(Equipment equipment)
         {
-            /*SyncEquipment[Equipment.EquipmentSlot.LeftHand] = equipment[Equipment.EquipmentSlot.LeftHand];
-            if (SyncEquipment[Equipment.EquipmentSlot.LeftHand] != null)
-                SyncEquipment[Equipment.EquipmentSlot.LeftHand].GetComponent<Item>().Visible = false;
-
-            SyncEquipment[Equipment.EquipmentSlot.RightHand] = equipment[Equipment.EquipmentSlot.RightHand];
-            if (SyncEquipment[Equipment.EquipmentSlot.RightHand] != null)
-                SyncEquipment[Equipment.EquipmentSlot.RightHand].GetComponent<Item>().Visible = false;*/
-
-            Debug.Log("CmdSendEquipmentToServer command received");
 
             for (Equipment.EquipmentSlot i = 0; i < (Equipment.EquipmentSlot)Equipment.AmountOfSlots; i++)
             {
