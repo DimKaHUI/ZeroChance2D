@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114655184942727392}
   - component: {fileID: 60580114182309004}
   - component: {fileID: 114387215243489678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Glock-17 Clip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,7 @@ MonoBehaviour:
   SlotSize: 2
   Weight: 0.01
   ItemName: Glock-17 clip
+  Visible: 1
 --- !u!114 &114653831376286590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,10 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5033a7e57f4886a4a9666e5289dcbef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSlots: 0
+  MaxSlots: 17
   StoredList: []
-  MandatoryItemName: 
-  MaximumItemSize: 0
+  MandatoryItemName: Parabellum 9x19
+  MaximumItemSize: 1
   WeaponModel: 0
 --- !u!212 &212594521803931906
 SpriteRenderer:
