@@ -131,20 +131,30 @@ namespace ZeroChance2D
 
             #endregion
 
-            if(Ui != null)
+            //Debug.Log(Ui.IsCursorUponUi());
+            if (Ui != null && !Ui.IsCursorUponUi())
+            {
                 ManipulatedItem = Ui.UnderCursor("Items");
 
-            if (Input.GetMouseButtonDown(0) && ManipulatedItem != null)
-            {
-                PickItem(ManipulatedItem);
+                if (Input.GetMouseButtonDown(0) && ManipulatedItem != null && !Ui.IsCursorUponUi())
+                {
+                    PickItem(ManipulatedItem);
+                }
+                if (Input.GetMouseButtonDown(0) && ManipulatedItem == null)
+                {
+                    if (ActiveHand == HandSide.Left && playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
+                        PutItem(ActiveHand);
+                    if (ActiveHand == HandSide.Right && playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] !=
+                        null)
+                        PutItem(ActiveHand);
+                }
             }
-            if (Input.GetMouseButtonDown(0) && ManipulatedItem == null)
+            else
             {
-                if (ActiveHand == HandSide.Left && playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
-                    PutItem(ActiveHand);
-                if (ActiveHand == HandSide.Right && playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] != null)
-                    PutItem(ActiveHand);
+                ManipulatedItem = null;
             }
+
+
         }
 
         void PickItem(GameObject item)
