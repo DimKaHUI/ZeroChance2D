@@ -36,12 +36,10 @@ namespace ZeroChance2D
             if (!Visible)
             {
                 gameObject.layer = LayerMask.NameToLayer("Hidden");
-                Debug.Log("Item is hidden now!");
             }
             else
             {
                 gameObject.layer = LayerMask.NameToLayer("Environment");
-                Debug.Log("Item is visible now!");
             }
         }
     }
