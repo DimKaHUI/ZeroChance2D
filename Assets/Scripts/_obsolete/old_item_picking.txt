@@ -1,0 +1,59 @@
+#region Item picking
+
+            if (CurrentMode == ControllMode.Interaction)
+            {
+                
+
+                if (Input.GetMouseButtonDown(0) && !hitUI)
+                {
+                    if (itemUnderCursor != null && Vector2.Distance(Controller.transform.position, itemUnderCursor.gameObject.transform.position) <= ItemPickRange) // If cursor is upon an item
+                    {
+                        switch (ActiveHand)
+                        {
+                            case HandSide.Right:
+                                if (Controller.Equipment.RightHandItem == null)
+                                {
+                                    itemUnderCursor.gameObject.SetActive(false);
+                                    Controller.Equipment.RightHandItem = itemUnderCursor;
+                                }
+                                break;
+                            case HandSide.Left:
+                                if (Controller.Equipment.LeftHandItem == null)
+                                {
+                                    itemUnderCursor.gameObject.SetActive(false);
+                                    Controller.Equipment.LeftHandItem = itemUnderCursor;
+                                }
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                    else if( Vector2.Distance(Controller.transform.position, clickPoint) <= ItemPickRange)
+                    {
+                        switch (ActiveHand)
+                        {
+                            case HandSide.Left:
+                                if (Controller.Equipment.LeftHandItem != null)
+                                {
+                                    Controller.Equipment.LeftHandItem.gameObject.SetActive(true);
+                                    Controller.Equipment.LeftHandItem.gameObject.transform.position = clickPoint;
+                                    Controller.Equipment.LeftHandItem = null;
+                                }
+                                break;
+                            case HandSide.Right:
+                                if (Controller.Equipment.RightHandItem != null)
+                                {
+                                    Controller.Equipment.RightHandItem.gameObject.SetActive(true);
+                                    Controller.Equipment.RightHandItem.gameObject.transform.position = clickPoint;
+
+                                    Controller.Equipment.RightHandItem = null;
+                                }
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                }
+
+            }
+            #endregion
