@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114339403378647902}
   - component: {fileID: 60682960814006114}
   - component: {fileID: 114906608847464902}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CokaColaCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
     i13: 132
     i14: 50
     i15: 18
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!114 &114339403378647902
 MonoBehaviour:
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
   m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
+  m_SyncRotationAxis: 3
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
@@ -163,6 +163,7 @@ MonoBehaviour:
   SlotSize: 2
   Weight: 0.001
   ItemName: Can of Cola
+  Visible: 1
 --- !u!212 &212468604888686360
 SpriteRenderer:
   m_ObjectHideFlags: 1
