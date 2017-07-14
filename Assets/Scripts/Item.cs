@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ZeroChance2D
 {
     [RequireComponent(typeof(Collider2D))]
-    public class Item : MonoBehaviour
+    [RequireComponent(typeof(NetworkTransform))]
+    public class Item : NetworkBehaviour
     {
         public int SlotSize;
         public float Weight;
         public string ItemName;
 
+        [SyncVar]
+        public bool Visible = true;
         public virtual void Use(GameObject user, GameObject target = null)
         {
             
@@ -21,16 +25,20 @@ namespace ZeroChance2D
             
         }
 
-        // Use this for initialization
-        void Start()
+        void FixedUpdate()
         {
-
+            Visualization();
         }
 
-        // Update is called once per frame
-        void Update()
+        [Client]
+        void Visualization()
         {
-
+            if (!Visible)
+                gameObject.layer = LayerMask.NameToLayer("Hidden");
+            else
+            {
+                gameObject.layer = LayerMask.NameToLayer("Environment");
+            }
         }
     }
 }
