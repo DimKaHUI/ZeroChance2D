@@ -13,7 +13,7 @@ namespace ZeroChance2D
         public float Weight;
         public string ItemName;
 
-        [SyncVar]
+        [SyncVar(hook = "Visualization")]
         public bool Visible = true;
         public virtual void Use(GameObject user, GameObject target = null)
         {
@@ -27,17 +27,21 @@ namespace ZeroChance2D
 
         void FixedUpdate()
         {
-            Visualization();
+            //Visualization(Visible);
         }
 
         [Client]
-        void Visualization()
+        void Visualization(bool Visible)
         {
             if (!Visible)
+            {
                 gameObject.layer = LayerMask.NameToLayer("Hidden");
+                Debug.Log("Item is hidden now!");
+            }
             else
             {
                 gameObject.layer = LayerMask.NameToLayer("Environment");
+                Debug.Log("Item is visible now!");
             }
         }
     }
