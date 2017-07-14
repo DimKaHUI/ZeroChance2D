@@ -43,7 +43,13 @@ namespace ZeroChance2D
         {
             var hitItem = Physics2D.Raycast(UnderCursorPoint, new Vector2(0, 0), Mathf.Infinity,
                 LayerMask.NameToLayer(layer));
-            return hitItem.collider == null ? null : hitItem.collider.gameObject;
+
+            var collider = hitItem.collider;
+            if (collider == null)
+                return null;
+            if (collider.gameObject.GetComponent<SpriteRenderer>().sortingLayerName == layer)
+                return collider.gameObject;
+            return null;
         }
 
         public bool IsCursorUponUi()
