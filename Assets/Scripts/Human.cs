@@ -53,26 +53,20 @@ namespace ZeroChance2D
     [Serializable]
     public class Equipment
     {
-        public Item LeftHandItem;
-        public Item RightHandItem;
+        public GameObject LeftHandItem;
+        public GameObject RightHandItem;
     }
 
     [Serializable]
     public class Human : NetworkBehaviour
     {
-        [SyncVar]
         public float WalkSpeed;
-        [SyncVar]
         public float RunSpeed;
-        [SyncVar]
         public LifeSystem LifeParams = new LifeSystem();
-        [SyncVar]
         public float SleepThresold = 100f;
-        [SyncVar]
         public float Nutrition = 100f;
-        [SyncVar]
         public State State;
-        //[SyncVar]
+        public float RotationSpeed = 60f;
         public Equipment Equipment = new Equipment();
 
     }
