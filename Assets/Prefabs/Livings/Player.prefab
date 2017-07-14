@@ -21,9 +21,11 @@ GameObject:
   - component: {fileID: 4501575195915394}
   - component: {fileID: 212645983516496328}
   - component: {fileID: 114781133316644044}
-  - component: {fileID: 114652658324595916}
   - component: {fileID: 50261453096545068}
   - component: {fileID: 114803730755491586}
+  - component: {fileID: 114571405684254954}
+  - component: {fileID: 114885286076587062}
+  - component: {fileID: 114481379750765480}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -64,7 +66,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &114652658324595916
+--- !u!114 &114481379750765480
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -72,19 +74,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 1861424535875602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ae707a32d88e6c41a6d231e3d4c8137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 2
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 3
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
+  SyncEquipment:
+    LeftHandItem: {fileID: 0}
+    RightHandItem: {fileID: 0}
+--- !u!114 &114571405684254954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861424535875602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3dbf48becfb52459be5a7b30d71339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkSpeed: 4
+  RunSpeed: 8
+  LifeParams:
+    BrainHealth: 100
+    ToxinDamage: 0
+    HeadDamage:
+      Brute: 0
+      Burn: 0
+    LeftHanDamage:
+      Brute: 0
+      Burn: 0
+    RightHandDamage:
+      Brute: 0
+      Burn: 0
+    LeftLegDamage:
+      Brute: 0
+      Burn: 0
+    RightLegDamage:
+      Brute: 0
+      Burn: 0
+    ChestDamage:
+      Brute: 0
+      Burn: 0
+    GroinDamage:
+      Brute: 0
+      Burn: 0
+  SleepThresold: 100
+  Nutrition: 100
+  State: 0
+  RotationSpeed: 180
+  Equipment:
+    LeftHandItem: {fileID: 0}
+    RightHandItem: {fileID: 0}
 --- !u!114 &114781133316644044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,36 +167,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05937194bd1a65428c4e77816bc0464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 4
-  RunSpeed: 8
-  LifeParams:
-    BrainHealth: 100
-    ToxinDamage: 0
-    HeadDamage:
-      Brute: 0
-      Burn: 0
-    LeftHanDamage:
-      Brute: 0
-      Burn: 0
-    RightHandDamage:
-      Brute: 0
-      Burn: 0
-    LeftLegDamage:
-      Brute: 0
-      Burn: 0
-    RightLegDamage:
-      Brute: 0
-      Burn: 0
-    ChestDamage:
-      Brute: 0
-      Burn: 0
-    GroinDamage:
-      Brute: 0
-      Burn: 0
-  SleepThresold: 100
-  Nutrition: 100
-  State: 0
-  RotationSpeed: 180
+  ActiveHand: 1
+  CurrentMode: 0
+  CameraRelativePosition: {x: 0, y: 0, z: -10}
+  AimSensitivity: 0.5
+  ItemPickRange: 3
+  ManipulatedItem: {fileID: 0}
+--- !u!114 &114885286076587062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861424535875602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12fd20e482fad74e97e65c1299cb7da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncedPos: {x: 0, y: 0, z: 0}
+  SyncedZRotation: 0
+  LerpRate: 15
 --- !u!212 &212645983516496328
 SpriteRenderer:
   m_ObjectHideFlags: 1
