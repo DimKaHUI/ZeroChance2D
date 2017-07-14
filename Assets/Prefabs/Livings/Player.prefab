@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114571405684254954}
   - component: {fileID: 114885286076587062}
   - component: {fileID: 114481379750765480}
+  - component: {fileID: 60211476687880220}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -66,6 +67,49 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &60211476687880220
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861424535875602}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.1, y: 0.37}
+      - {x: 0.61, y: 0.39999998}
+      - {x: 0.57, y: 0.48}
+      - {x: 0.35999998, y: 0.48}
+      - {x: 0.34, y: 0.38}
+      - {x: -0.21, y: 0.48}
+      - {x: -0.53, y: 0.48}
+      - {x: -0.55, y: 0.38}
+      - {x: -0.93, y: 0.39999998}
+      - {x: -1.12, y: 0.22}
+      - {x: -1.12, y: -0.06}
+      - {x: -1.1, y: -0.16}
+      - {x: -0.93, y: -0.26}
+      - {x: -0.37, y: -0.29999998}
+      - {x: 0.089999996, y: -0.29999998}
+      - {x: 0.14, y: -0.29}
+      - {x: 1.02, y: -0.26}
+      - {x: 1.22, y: -0.14}
+      - {x: 1.22, y: 0.22}
 --- !u!114 &114481379750765480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,8 +122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SyncEquipment:
-    LeftHandItem: {fileID: 0}
-    RightHandItem: {fileID: 0}
+    Inventory:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
 --- !u!114 &114571405684254954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,8 +168,10 @@ MonoBehaviour:
   State: 0
   RotationSpeed: 180
   Equipment:
-    LeftHandItem: {fileID: 0}
-    RightHandItem: {fileID: 0}
+    Inventory:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
 --- !u!114 &114781133316644044
 MonoBehaviour:
   m_ObjectHideFlags: 1
