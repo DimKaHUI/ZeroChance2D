@@ -1201,7 +1201,6 @@ MonoBehaviour:
   LeftItemImage: {fileID: 586019400}
   RightItemImage: {fileID: 265039887}
   HealthIndicator: {fileID: 0}
-  Player: {fileID: 0}
 --- !u!1 &1990974123
 GameObject:
   m_ObjectHideFlags: 0
