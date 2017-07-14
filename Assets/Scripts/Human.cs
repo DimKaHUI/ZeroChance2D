@@ -53,8 +53,34 @@ namespace ZeroChance2D
     [Serializable]
     public class Equipment
     {
-        public GameObject LeftHandItem;
-        public GameObject RightHandItem;
+        public enum EquipmentSlot { LeftHand, RightHand, Backpack}
+
+        public const int AmountOfSlots = 3;
+
+        public GameObject[] Inventory = new GameObject[AmountOfSlots];
+
+        public GameObject this[EquipmentSlot slot]
+        {
+            get { return Inventory[(int) slot]; }
+            set { Inventory[(int) slot] = value; }
+        }
+
+        public GameObject this[int slot]
+        {
+            get { return Inventory[slot]; }
+            set { Inventory[slot] = value; }
+        }
+
+        public bool IsEqual(Equipment equipment)
+        {
+            for (EquipmentSlot i = 0; i < (EquipmentSlot)AmountOfSlots; i++)
+            {
+                if(this[i] != equipment[i])
+                    return false;
+            }
+
+            return true;
+        }
     }
 
     [Serializable]
@@ -68,6 +94,5 @@ namespace ZeroChance2D
         public State State;
         public float RotationSpeed = 60f;
         public Equipment Equipment = new Equipment();
-
     }
 }

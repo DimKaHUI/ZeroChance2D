@@ -25,25 +25,38 @@ namespace ZeroChance2D
 
         void UpdateEquipment()
         {
-            gameObject.GetComponent<Human>().Equipment.LeftHandItem = SyncEquipment.LeftHandItem;
-            gameObject.GetComponent<Human>().Equipment.RightHandItem = SyncEquipment.RightHandItem;
+            gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = SyncEquipment[Equipment.EquipmentSlot.LeftHand];
+            gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = SyncEquipment[Equipment.EquipmentSlot.RightHand];
         }
 
         [Client]
         void TransmitEquipment()
         {
-            CmdSendEquipmentToServer(gameObject.GetComponent<Human>().Equipment);
+            if (!SyncEquipment.IsEqual(gameObject.GetComponent<Human>().Equipment))
+                CmdSendEquipmentToServer(gameObject.GetComponent<Human>().Equipment);
         }
 
         [Command]
         void CmdSendEquipmentToServer(Equipment equipment)
         {
-            SyncEquipment.LeftHandItem = equipment.LeftHandItem;
-            if(SyncEquipment.LeftHandItem != null)
-                SyncEquipment.LeftHandItem.GetComponent<Item>().Visible = false;
-            SyncEquipment.RightHandItem = equipment.RightHandItem;
-            if (SyncEquipment.RightHandItem != null)
-                SyncEquipment.RightHandItem.GetComponent<Item>().Visible = false;
+            /*SyncEquipment[Equipment.EquipmentSlot.LeftHand] = equipment[Equipment.EquipmentSlot.LeftHand];
+            if (SyncEquipment[Equipment.EquipmentSlot.LeftHand] != null)
+                SyncEquipment[Equipment.EquipmentSlot.LeftHand].GetComponent<Item>().Visible = false;
+
+            SyncEquipment[Equipment.EquipmentSlot.RightHand] = equipment[Equipment.EquipmentSlot.RightHand];
+            if (SyncEquipment[Equipment.EquipmentSlot.RightHand] != null)
+                SyncEquipment[Equipment.EquipmentSlot.RightHand].GetComponent<Item>().Visible = false;*/
+
+            Debug.Log("CmdSendEquipmentToServer command received");
+
+            for (Equipment.EquipmentSlot i = 0; i < (Equipment.EquipmentSlot)Equipment.AmountOfSlots; i++)
+            {
+                SyncEquipment[i] = equipment[i];
+                if (SyncEquipment[i] != null)
+                {
+                    SyncEquipment[i].GetComponent<Item>().Visible = false;
+                }
+            }
         }
 
     }

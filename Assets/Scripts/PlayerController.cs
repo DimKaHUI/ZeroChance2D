@@ -140,9 +140,9 @@ namespace ZeroChance2D
             }
             if (Input.GetMouseButtonDown(0) && ManipulatedItem == null)
             {
-                if (ActiveHand == HandSide.Left && playerHuman.Equipment.LeftHandItem != null)
+                if (ActiveHand == HandSide.Left && playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
                     PutItem(ActiveHand);
-                if (ActiveHand == HandSide.Right && playerHuman.Equipment.RightHandItem != null)
+                if (ActiveHand == HandSide.Right && playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] != null)
                     PutItem(ActiveHand);
             }
         }
@@ -152,17 +152,17 @@ namespace ZeroChance2D
             switch (ActiveHand)
             {
                 case HandSide.Left:
-                    if (gameObject.GetComponent<Human>().Equipment.LeftHandItem == null)
+                    if (gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] == null)
                     {
                         item.GetComponent<Item>().Visible = false;
-                        gameObject.GetComponent<Human>().Equipment.LeftHandItem = item;
+                        gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = item;
                     }
                     break;
                 case HandSide.Right:
-                    if (gameObject.GetComponent<Human>().Equipment.RightHandItem == null)
+                    if (gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] == null)
                     {
                         item.GetComponent<Item>().Visible = false;
-                        gameObject.GetComponent<Human>().Equipment.RightHandItem = item;
+                        gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = item;
                     }
                     break;
             }
@@ -173,12 +173,12 @@ namespace ZeroChance2D
             switch (side)
             {
                 case HandSide.Left:
-                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment.LeftHandItem, Ui.UnderCursorPoint);
-                    gameObject.GetComponent<Human>().Equipment.LeftHandItem = null;
+                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], Ui.UnderCursorPoint);
+                    gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = null;
                     break;
                 case HandSide.Right:
-                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment.RightHandItem, Ui.UnderCursorPoint);
-                    gameObject.GetComponent<Human>().Equipment.RightHandItem = null;
+                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], Ui.UnderCursorPoint);
+                    gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = null;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("side", side, null);

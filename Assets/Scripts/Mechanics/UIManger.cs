@@ -70,13 +70,13 @@ namespace ZeroChance2D
         {
             if (playerHuman == null)
             {
-                Debug.LogWarning("No player attached!");
+                //Debug.LogWarning("No player attached!");
                 return;
             }
             // Drawing sprites
-            if (playerHuman.Equipment.LeftHandItem != null)
+            if (playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
             {
-                var image = playerHuman.Equipment.LeftHandItem.GetComponent<SpriteRenderer>()
+                var image = playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand].GetComponent<SpriteRenderer>()
                     .sprite.texture;
                 var imageSize = new Vector2(image.width, image.height);
 
@@ -99,9 +99,9 @@ namespace ZeroChance2D
             }
 
 
-            if (playerHuman.Equipment.RightHandItem != null)
+            if (playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] != null)
             {
-                var image = playerHuman.Equipment.RightHandItem.GetComponent<SpriteRenderer>()
+                var image = playerHuman.Equipment[Equipment.EquipmentSlot.RightHand].GetComponent<SpriteRenderer>()
                     .sprite.texture;
                 var imageSize = new Vector2(image.width, image.height);
 
