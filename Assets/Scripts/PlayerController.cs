@@ -28,7 +28,7 @@ namespace ZeroChance2D
         public Vector3 CameraRelativePosition = new Vector3(0, 0, -10);
         public float AimSensitivity = 1f;
         public float ItemPickRange = 3f;
-        public float ShootingModeRotationThresold = 0.5f;
+        public float ShootingModeMovementThresold = 0.5f;
 
         public GameObject ManipulatedItem;
 
