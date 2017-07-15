@@ -28,6 +28,7 @@ namespace ZeroChance2D
         public Vector3 CameraRelativePosition = new Vector3(0, 0, -10);
         public float AimSensitivity = 1f;
         public float ItemPickRange = 3f;
+        public float ShootingModeRotationThresold = 0.5f;
 
         public GameObject ManipulatedItem;
 
@@ -67,7 +68,7 @@ namespace ZeroChance2D
             if (!isLocalPlayer)
                 return;
 
-            #region Movement and camera controlling
+#region Movement and camera controlling
 
             Vector3 pos = gameObject.transform.position;
 
@@ -93,7 +94,6 @@ namespace ZeroChance2D
                     Cursor.visible = false;
                     Cursor.lockState = CursorLockMode.Locked;
                 }
-                Debug.Log("Mode changed");
             }
 
             if (CurrentMode == ControllMode.Interaction)
@@ -107,11 +107,19 @@ namespace ZeroChance2D
             {
                 float forward = Input.GetAxis("Vertical");
                 float turn = Input.GetAxis("Horizontal");
-                rig.velocity = rig.gameObject.transform.up * playerHuman.WalkSpeed * forward;
 
                 Ray ray = cameraObject.GetComponent<Camera>()
                     .ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-                var point = ray.GetPoint(CameraRelativePosition.z);
+                var point = ray.GetPoint(-CameraRelativePosition.z);
+
+                if (Vector3.Distance(gameObject.transform.position, point) >= ShootingModeRotationThresold)
+                {
+                    rig.velocity = rig.gameObject.transform.up * playerHuman.WalkSpeed * forward;
+                }
+                else
+                {
+                    rig.velocity = Vector2.zero;
+                }
 
                 float angle = Mathf.Atan2(point.y - pos.y, point.x - pos.x);
                 rig.gameObject.transform.rotation =
@@ -127,9 +135,10 @@ namespace ZeroChance2D
                 float move_y = Input.GetAxis("Mouse Y");
                 prevOffset += new Vector3(move_x, move_y, 0) * AimSensitivity;
                 cameraObject.transform.position = new Vector3(pos.x, pos.y, CameraRelativePosition.z) + prevOffset;
+                
             }
 
-            #endregion
+#endregion
 
             //Debug.Log(Ui.IsCursorUponUi());
             if (Ui != null && !Ui.IsCursorUponUi())
