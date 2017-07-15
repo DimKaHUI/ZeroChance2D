@@ -112,7 +112,7 @@ namespace ZeroChance2D
                     .ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
                 var point = ray.GetPoint(-CameraRelativePosition.z);
 
-                if (Vector3.Distance(gameObject.transform.position, point) >= ShootingModeRotationThresold)
+                if (Vector3.Distance(gameObject.transform.position, point) >= ShootingModeMovementThresold)
                 {
                     rig.velocity = rig.gameObject.transform.up * playerHuman.WalkSpeed * forward;
                 }
