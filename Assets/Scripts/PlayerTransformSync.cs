@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 namespace ZeroChance2D
 {
-
+    [NetworkSettings(channel = 1, sendInterval = 0.01f)]
     public class PlayerTransformSync : NetworkBehaviour
     {
         [SyncVar] public Vector3 SyncedPos;
