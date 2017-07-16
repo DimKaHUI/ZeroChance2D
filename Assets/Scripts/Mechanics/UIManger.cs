@@ -15,9 +15,18 @@ namespace ZeroChance2D
         public RawImage RightItemImage;
         public Image HealthIndicator;
 
+        public GameObject DescriptionPanel;
+
+
         private GameObject playerObj;
         private Human playerHuman;
         private PlayerController playerController;
+
+
+        void Start()
+        {
+            DescriptionPanel.SetActive(false);
+        }
 
         public GameObject LocalPlayerObject
         {
@@ -76,9 +85,28 @@ namespace ZeroChance2D
         {
             if (playerHuman == null)
             {
-                //Debug.LogWarning("No player attached!");
                 return;
             }
+
+            // Showing description panel
+            if (playerController.ManipulatedItem != null)
+            {
+                Text nameBox = DescriptionPanel.transform.Find("NameBox").gameObject.GetComponent<Text>();
+                Text descriptionBox = DescriptionPanel.transform.Find("DescriptionBox").gameObject.GetComponent<Text>();
+                nameBox.text = playerController.ManipulatedItem.GetComponent<Item>().ItemName;
+                descriptionBox.text = playerController.ManipulatedItem.GetComponent<Item>().Description;
+
+                Vector2 panelpos = Input.mousePosition;
+                panelpos.x += DescriptionPanel.GetComponent<RectTransform>().sizeDelta.x / 2;
+                panelpos.y += DescriptionPanel.GetComponent<RectTransform>().sizeDelta.y / 2;
+                DescriptionPanel.GetComponent<RectTransform>().anchoredPosition = panelpos;
+                DescriptionPanel.SetActive(true);
+            }
+            else
+            {
+                DescriptionPanel.SetActive(false);
+            }
+
             // Drawing sprites
             if (playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
             {
@@ -136,6 +164,11 @@ namespace ZeroChance2D
             {
                 playerController.ActiveHand = HandSide.Left;
             }
+        }
+
+        public void ShowDescription()
+        {
+            
         }
     }
 }
