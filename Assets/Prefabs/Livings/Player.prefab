@@ -220,6 +220,7 @@ MonoBehaviour:
   CameraRelativePosition: {x: 0, y: 0, z: -10}
   AimSensitivity: 0.5
   ItemPickRange: 3
+  ShootingModeRotationThresold: 1
   ManipulatedItem: {fileID: 0}
 --- !u!114 &114885286076587062
 MonoBehaviour:
