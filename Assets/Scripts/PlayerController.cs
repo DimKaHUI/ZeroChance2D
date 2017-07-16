@@ -31,7 +31,6 @@ namespace ZeroChance2D
         public float ShootingModeMovementThresold = 0.5f;
 
         public GameObject ManipulatedItem;
-        public GameObject PrevManipulatedItem;
 
         private Rigidbody2D rig;
         private GameObject cameraObject;
