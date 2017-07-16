@@ -163,6 +163,7 @@ MonoBehaviour:
   SlotSize: 2
   Weight: 0.001
   ItemName: Can of Cola
+  Description: A can of Cola drink. Property of CocaCola company.
   Visible: 1
 --- !u!212 &212468604888686360
 SpriteRenderer:

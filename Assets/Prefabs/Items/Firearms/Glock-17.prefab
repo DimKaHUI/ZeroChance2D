@@ -177,6 +177,7 @@ MonoBehaviour:
   SlotSize: 4
   Weight: 0.625
   ItemName: Glock-17
+  Description: A simple pistol.
   Visible: 1
 --- !u!114 &114721152945118808
 MonoBehaviour:
