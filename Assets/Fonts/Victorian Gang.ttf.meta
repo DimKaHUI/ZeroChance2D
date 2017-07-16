@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: ae323fcb169f895448a0ba7acc88dd69
+timeCreated: 1500127327
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Victorian Gang
+  fontNames:
+  - Victorian Gang
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
