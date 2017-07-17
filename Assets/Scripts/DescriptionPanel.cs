@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace ZeroChance2D
 {
     [Serializable]
-    public class DescriptionParameters
+    public struct DescriptionParameters
     {
         public Vector2 WrappedSize;
         public Vector2 UnwrappedSize;
@@ -29,8 +29,6 @@ namespace ZeroChance2D
 
         private GameObject itemGameObject;
         private Item item;
-        private bool initialized = false;
-
 
         public GameObject ItemGameObject
         {
