@@ -38,8 +38,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1585134273411400}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.64, y: 1.04, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -163,7 +163,11 @@ MonoBehaviour:
   SlotSize: 2
   Weight: 0.001
   ItemName: Can of Cola
-  Description: A can of Cola drink. Property of CocaCola company.
+  DescriptionParameters:
+    WrappedSize: {x: 90, y: 22}
+    UnwrappedSize: {x: 180, y: 80}
+    Description: A can of Cola drink. Property of CocaCola company.
+    ExternalItemName: Can of Cola
   Visible: 1
 --- !u!212 &212468604888686360
 SpriteRenderer:

@@ -12,7 +12,9 @@ namespace ZeroChance2D
         public int SlotSize;
         public float Weight;
         public string ItemName;
-        public string Description;
+        //public string Description;
+        public DescriptionParameters DescriptionParameters;
+
 
         [SyncVar(hook = "Visualization")]
         public bool Visible = true;

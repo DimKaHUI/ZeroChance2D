@@ -573,12 +573,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1142321673}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.16000001}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -9.5, y: -12}
-  m_SizeDelta: {x: -40, y: -33.6}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 99.7, y: 84.499985}
+  m_SizeDelta: {x: 180, y: 131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &704275104
 MonoBehaviour:
@@ -612,7 +612,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <Description>
+  m_Text: <Description> <with some> <more> <lines to fit, bitch>
 --- !u!222 &704275105
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -876,10 +876,7 @@ MonoBehaviour:
   DescriptionBox: {fileID: 704275104}
   DescriptionUnfadingDelay: 1.5
   UnfadingAnimationTime: 0.3
-  WrappedSize: {x: 150, y: 30}
-  UnwrappedSize: {x: 0, y: 0}
   Active: 0
-  itemGameObject: {fileID: 0}
 --- !u!1 &1056888484
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,14 +983,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1661267344}
   - {fileID: 704275103}
+  - {fileID: 1661267344}
   m_Father: {fileID: 1181956744}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 701, y: 391.5}
+  m_AnchoredPosition: {x: 900, y: 371.49997}
   m_SizeDelta: {x: 200, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1142321674
@@ -1378,12 +1375,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1142321673}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.020000001, y: 0}
-  m_AnchorMax: {x: 0.020000001, y: 0}
-  m_AnchoredPosition: {x: 86.5, y: 13.799999}
-  m_SizeDelta: {x: 160, y: 19.7}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 99.70001, y: 9.499996}
+  m_SizeDelta: {x: 180, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1661267345
 MonoBehaviour:
@@ -1411,13 +1408,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 6
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Item name
+  m_Text: Can of cola
 --- !u!222 &1661267346
 CanvasRenderer:
   m_ObjectHideFlags: 0
