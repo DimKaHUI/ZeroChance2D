@@ -52,7 +52,7 @@ namespace ZeroChance2D
                 {
                     StopAllCoroutines();
                     Active = false;
-                    itemGameObject = value;
+                    itemGameObject = null;
                 }
                 
 
