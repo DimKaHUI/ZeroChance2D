@@ -68,7 +68,7 @@ namespace ZeroChance2D
             if (!isLocalPlayer)
                 return;
 
-#region Movement and camera controlling
+            #region Movement and camera controlling
 
             Vector3 pos = gameObject.transform.position;
 
@@ -135,32 +135,31 @@ namespace ZeroChance2D
                 float move_y = Input.GetAxis("Mouse Y");
                 prevOffset += new Vector3(move_x, move_y, 0) * AimSensitivity;
                 cameraObject.transform.position = new Vector3(pos.x, pos.y, CameraRelativePosition.z) + prevOffset;
-                
+
             }
 
-#endregion
+            #endregion
 
-            //Debug.Log(Ui.IsCursorUponUi());
-            if (Ui != null && !Ui.IsCursorUponUi())
+
+            if (Ui != null && !Ui.IsCursorUponUi() && Ui.UnderCursor("Items") != null &&
+                Ui.UnderCursor("Items").layer != LayerMask.NameToLayer("Hidden"))
             {
                 ManipulatedItem = Ui.UnderCursor("Items");
-
-                if (Input.GetMouseButtonDown(0) && ManipulatedItem != null && !Ui.IsCursorUponUi())
-                {
-                    PickItem(ManipulatedItem);
-                }
-                if (Input.GetMouseButtonDown(0) && ManipulatedItem == null)
-                {
-                    if (ActiveHand == HandSide.Left && playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
-                        PutItem(ActiveHand);
-                    if (ActiveHand == HandSide.Right && playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] !=
-                        null)
-                        PutItem(ActiveHand);
-                }
             }
             else
             {
                 ManipulatedItem = null;
+            }
+            if (Input.GetMouseButtonDown(0) && ManipulatedItem != null && !Ui.IsCursorUponUi())
+            {
+                PickItem(ManipulatedItem);
+            }
+            if (Input.GetMouseButtonDown(0) && ManipulatedItem == null)
+            {
+                if (ActiveHand == HandSide.Left && playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
+                    PutItem(ActiveHand);
+                if (ActiveHand == HandSide.Right && playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] != null)
+                    PutItem(ActiveHand);
             }
 
 
