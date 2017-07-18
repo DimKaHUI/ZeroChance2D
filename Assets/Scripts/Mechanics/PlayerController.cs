@@ -166,11 +166,57 @@ namespace ZeroChance2D
                         PutItem(ActiveHand);
                 }
 
-                //Debug.Log(Ui.IsCursorUponUi());
                 #endregion
             }
 
             #region Shooting
+
+            // Getting a weapon instance
+            if (CurrentMode == ControllMode.Shooting)
+            {
+                Weapon weapon = null;
+                switch (ActiveHand)
+                {
+                    case HandSide.Left:
+                        if (playerHuman.Equipment[0] == null)
+                        {
+                            // TODO Weapon-free behavior
+                            break;
+                        }
+                        weapon = playerHuman.Equipment[0].GetComponent<Weapon>();
+                        if (weapon == null)
+                        {
+                            // TODO Item is not a weapon issue
+                            break;
+                        }
+                        weapon = playerHuman.Equipment[0].GetComponent<Weapon>();
+                        break;
+                    case HandSide.Right:
+                        if (playerHuman.Equipment[1] == null)
+                        {
+                            // TODO Weapon-free behavior
+                            break;
+                        }
+                        weapon = playerHuman.Equipment[1].GetComponent<Weapon>();
+                        if (weapon == null)
+                        {
+                            // TODO Item is not a weapon issue
+                            break;
+                        }
+                        weapon = playerHuman.Equipment[1].GetComponent<Weapon>();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                // TODO Shooting
+                if (weapon != null)
+                {
+                    if(weapon.ReadyToShoot && Input.GetMouseButtonDown(0))
+                        weapon.CmdUse(gameObject);
+                }
+                    
+            }
+
             
             
 
