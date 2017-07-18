@@ -140,29 +140,41 @@ namespace ZeroChance2D
 
             #endregion
 
+            if (CurrentMode == ControllMode.Interaction)
+            {
+                #region Picking and puting items
 
-            if (Ui != null && !Ui.IsCursorUponUi() && Ui.UnderCursor("Items") != null &&
-                Ui.UnderCursor("Items").layer != LayerMask.NameToLayer("Hidden"))
-            {
-                ManipulatedItem = Ui.UnderCursor("Items");
-            }
-            else
-            {
-                ManipulatedItem = null;
-            }
-            if (Input.GetMouseButtonDown(0) && ManipulatedItem != null && !Ui.IsCursorUponUi())
-            {
-                PickItem(ManipulatedItem);
-            }
-            if (Input.GetMouseButtonDown(0) && ManipulatedItem == null)
-            {
-                if (ActiveHand == HandSide.Left && playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
-                    PutItem(ActiveHand);
-                if (ActiveHand == HandSide.Right && playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] != null)
-                    PutItem(ActiveHand);
+                if (Ui != null && !Ui.IsCursorUponUi() && Ui.UnderCursor("Items") != null &&
+                    Ui.UnderCursor("Items").layer != LayerMask.NameToLayer("Hidden"))
+                {
+                    ManipulatedItem = Ui.UnderCursor("Items");
+                }
+                else
+                {
+                    ManipulatedItem = null;
+                }
+                if (Input.GetMouseButtonDown(0) && ManipulatedItem != null && !Ui.IsCursorUponUi())
+                {
+                    PickItem(ManipulatedItem);
+                }
+                if (Input.GetMouseButtonDown(0) && ManipulatedItem == null && Ui.IsCursorUponUi() == false)
+                {
+                    if (ActiveHand == HandSide.Left && playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
+                        PutItem(ActiveHand);
+                    if (ActiveHand == HandSide.Right && playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] !=
+                        null)
+                        PutItem(ActiveHand);
+                }
+
+                //Debug.Log(Ui.IsCursorUponUi());
+                #endregion
             }
 
+            #region Shooting
+            
+            
 
+            #endregion
         }
 
         void PickItem(GameObject item)
