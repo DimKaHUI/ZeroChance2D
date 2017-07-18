@@ -20,6 +20,7 @@ namespace ZeroChance2D
         public GameObject DescriptionPanelObject;
         public Text NameBox;
         public Text DescriptionBox;
+        public GameObject UiManager;
 
         public float DescriptionUnfadingDelay = 1.5f;
         public float UnfadingAnimationTime = 0.3f;
@@ -61,7 +62,7 @@ namespace ZeroChance2D
 
         void Update()
         {
-            if (Active)
+            if (Active && UiManager.GetComponent<UIManger>().PlayerCtrl.CurrentMode == ControllMode.Interaction)
             {
                 DescriptionPanelObject.SetActive(true);
                 Vector2 panelpos = Input.mousePosition;

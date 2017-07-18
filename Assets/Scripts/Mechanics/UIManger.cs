@@ -19,7 +19,8 @@ namespace ZeroChance2D
        
         private GameObject playerObj;
         private Human playerHuman;
-        private PlayerController playerController;
+        [HideInInspector]
+        public PlayerController PlayerCtrl;
 
         public GameObject LocalPlayerObject
         {
@@ -28,7 +29,7 @@ namespace ZeroChance2D
             {
                 playerObj = value;
                 playerHuman = playerObj.GetComponent<Human>();
-                playerController = playerObj.GetComponent<PlayerController>();
+                PlayerCtrl = playerObj.GetComponent<PlayerController>();
             }
         }
 
@@ -82,9 +83,9 @@ namespace ZeroChance2D
             }
 
             // Showing description panel
-            if (playerController.ManipulatedItem != null)
+            if (PlayerCtrl.ManipulatedItem != null)
             {
-                DescriptionPanel.GetComponent<DescriptionPanel>().ItemGameObject = playerController.ManipulatedItem;
+                DescriptionPanel.GetComponent<DescriptionPanel>().ItemGameObject = PlayerCtrl.ManipulatedItem;
             }
             else
             {
@@ -143,10 +144,10 @@ namespace ZeroChance2D
         public void SelectHand(bool RightSide)
         {
             if (RightSide)
-                playerController.ActiveHand = HandSide.Right;
+                PlayerCtrl.ActiveHand = HandSide.Right;
             else
             {
-                playerController.ActiveHand = HandSide.Left;
+                PlayerCtrl.ActiveHand = HandSide.Left;
             }
         }
 
