@@ -211,7 +211,7 @@ namespace ZeroChance2D
                 // TODO Shooting
                 if (weapon != null)
                 {
-                    if(weapon.ReadyToShoot && Input.GetMouseButtonDown(0))
+                    if (weapon.ReadyToShoot && Input.GetAxis("Fire and usage") == 1f)
                         weapon.CmdUse(gameObject);
                 }
                     
