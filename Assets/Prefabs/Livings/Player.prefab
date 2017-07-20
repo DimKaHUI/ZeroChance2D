@@ -220,7 +220,7 @@ MonoBehaviour:
   CameraRelativePosition: {x: 0, y: 0, z: -10}
   AimSensitivity: 0.5
   ItemPickRange: 3
-  ShootingModeRotationThresold: 1
+  ShootingModeMovementThresold: 0.5
   ManipulatedItem: {fileID: 0}
 --- !u!114 &114885286076587062
 MonoBehaviour:
@@ -249,7 +249,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4a7c41d53e464734680d59a2a9f10c61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

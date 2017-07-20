@@ -135,13 +135,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponModel: 0
-  ShootsPerMinute: 600
+  BulletPrefab: {fileID: 1655963902373794, guid: 806bcd319d0e71149a57ac36edf630c9,
+    type: 2}
+  CooldownDuration: 0.5
   ShootingMode: 1
   InsertedClip: {fileID: 0}
   ShootAudioClips: []
   ReloadAudioClip: {fileID: 0}
   ScatterAngle: 0
-  InitialBulletSpeed: 375
+  InitialBulletSpeed: 20
+  BulletTimeout: 0
+  ReadyToShoot: 1
 --- !u!114 &114345416015927658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -228,7 +232,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4a7c41d53e464734680d59a2a9f10c61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
