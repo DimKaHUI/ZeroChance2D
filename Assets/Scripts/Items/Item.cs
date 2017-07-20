@@ -12,7 +12,12 @@ namespace ZeroChance2D
         public int SlotSize;
         public float Weight;
         public string ItemName;
+        [SyncVar]
+        public GameObject User;
+
+        public HandSide HandSide;
         //public string Description;
+        [SyncVar]
         public DescriptionParameters DescriptionParameters;
 
 
@@ -28,9 +33,9 @@ namespace ZeroChance2D
             
         }
 
-        void FixedUpdate()
+        public virtual void Use()
         {
-            //Visualization(Visible);
+            
         }
 
         [Client]
