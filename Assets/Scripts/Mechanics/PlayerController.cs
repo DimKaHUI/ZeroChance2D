@@ -232,6 +232,8 @@ namespace ZeroChance2D
                     {
                         item.GetComponent<Item>().Visible = false;
                         gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = item;
+                        item.GetComponent<Item>().User = gameObject;
+                        item.GetComponent<Item>().HandSide = ActiveHand;
                     }
                     break;
                 case HandSide.Right:
@@ -239,6 +241,8 @@ namespace ZeroChance2D
                     {
                         item.GetComponent<Item>().Visible = false;
                         gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = item;
+                        item.GetComponent<Item>().User = gameObject;
+                        item.GetComponent<Item>().HandSide = ActiveHand;
                     }
                     break;
             }
@@ -266,6 +270,7 @@ namespace ZeroChance2D
         {
             item.transform.position = location;
             item.GetComponent<Item>().Visible = true;
+            item.GetComponent<Item>().User = null;
         }
 
         
