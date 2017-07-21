@@ -9,8 +9,12 @@ namespace ZeroChance2D
 {
     public class UIManger : MonoBehaviour
     {
-        public Image LeftHandImage;
-        public Image RightHandImage;
+        public GameObject LeftHandObj;
+        public GameObject RightHandObj;
+        public Sprite LeftHandNotActiveSprite;
+        public Sprite LeftHandActiveSprite;
+        public Sprite RightHandNotActiveSprite;
+        public Sprite RightHandActiveSprite;
         public RawImage LeftItemImage;
         public RawImage RightItemImage;
         public Image HealthIndicator;
@@ -111,16 +115,19 @@ namespace ZeroChance2D
                 }
 
                 LeftItemImage.texture = image;
+                LeftItemImage.color = new Color(LeftItemImage.color.r, LeftItemImage.color.g, LeftItemImage.color.b, 255f);
             }
             else
             {
                 LeftItemImage.texture = null;
+                LeftItemImage.color = new Color(LeftItemImage.color.r, LeftItemImage.color.g, LeftItemImage.color.b, 0);
             }
 
 
             if (playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] != null)
             {
-                var image = playerHuman.Equipment[Equipment.EquipmentSlot.RightHand].GetComponent<SpriteRenderer>()
+                var image = playerHuman.Equipment[Equipment.EquipmentSlot.RightHand]
+                    .GetComponent<SpriteRenderer>()
                     .sprite.texture;
                 var imageSize = new Vector2(image.width, image.height);
 
@@ -136,19 +143,45 @@ namespace ZeroChance2D
                 }
 
                 RightItemImage.texture = image;
+                RightItemImage.color = new Color(RightItemImage.color.r, RightItemImage.color.g, RightItemImage.color.b, 255f);
 
             }
             else
+            {
                 RightItemImage.texture = null;
+                RightItemImage.color = new Color(RightItemImage.color.r, RightItemImage.color.g, RightItemImage.color.b, 0);
+            }
+
+            // hand sprites swaping
+            switch (PlayerCtrl.ActiveHand)
+            {
+                case HandSide.Left:
+                    LeftHandObj.GetComponent<Image>().sprite = LeftHandActiveSprite;
+                    RightHandObj.GetComponent<Image>().sprite = RightHandNotActiveSprite;
+                    break;
+                case HandSide.Right:
+                    LeftHandObj.GetComponent<Image>().sprite = LeftHandNotActiveSprite;
+                    RightHandObj.GetComponent<Image>().sprite = RightHandActiveSprite;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
-        public void SelectHand(bool RightSide)
+        public void SelectHand()
         {
-            if (RightSide)
+            if (PlayerCtrl == null)
+                return;
+            if (PlayerCtrl.ActiveHand == HandSide.Left)
                 PlayerCtrl.ActiveHand = HandSide.Right;
             else
             {
                 PlayerCtrl.ActiveHand = HandSide.Left;
             }
+        }
+
+        public void HandledItemClick(bool rightSide)
+        {
+            PlayerCtrl.CmdHandledItemClick(playerObj, rightSide);
         }
 
         public void ShowDescription()

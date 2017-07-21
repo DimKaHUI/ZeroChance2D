@@ -6,14 +6,17 @@ using UnityEngine.Networking;
 
 namespace ZeroChance2D
 {
-    //[RequireComponent(typeof(Light))]
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(NetworkTransform))]
+    //[NetworkSettings(channel = 2, sendInterval = 0.01f)]
     public class FlashLight : Item
     {
+        [SyncVar]
         public bool TurnedOn = false;
         public float Range;
         public float VerticalOffset;
+
+        public float LerpRate = 30;
 
         public Sprite StateOnSprite;
         public Sprite StateOffSprite;
@@ -22,31 +25,17 @@ namespace ZeroChance2D
 
         public GameObject LightSourcePrefab;
 
-        private GameObject lightSource;
         [SyncVar]
-        private Vector2 lightSourcePos;
+        public GameObject lightSource;
+        [SyncVar]
+        public Vector3 lightSourcePos;
 
         [SyncVar] private float lightSourceZRotation;
 
         public override void Use()
         {
-            CmdUse();
-        }
-
-        [Command]
-        void CmdUse()
-        {
             TurnedOn = !TurnedOn;
-        }
 
-        void Start()
-        {
-
-        }
-
-
-        void FixedUpdate()
-        {
             if (TurnedOn)
             {
                 if (User == null)
@@ -57,11 +46,11 @@ namespace ZeroChance2D
                 else if (User.GetComponent<Human>() != null)
                 {
                     GameObject handObj;
-                    if(HandSide == HandSide.Left)
+                    if (HandSide == HandSide.Left)
                         handObj = User.transform.Find("LeftHandPoint").gameObject;
                     else
                         handObj = User.transform.Find("RightHandPoint").gameObject;
-                    
+
                     lightSourcePos = handObj.transform.position;
                     lightSourceZRotation = handObj.transform.rotation.eulerAngles.z;
                 }
@@ -71,8 +60,65 @@ namespace ZeroChance2D
                     throw new NotImplementedException();
                 }
 
+                lightSourcePos.z = -VerticalOffset;
                 //lightSource 
+                var light = Instantiate(LightSourcePrefab, lightSourcePos, Quaternion.Euler(0, 0, lightSourceZRotation));
+                NetworkServer.Spawn(light);
+                lightSource = light;
+            }
+            else
+            {
+                NetworkServer.Destroy(lightSource);
             }
         }
+
+        [Server]
+        void Update()
+        {
+            if (User == null)
+            {
+                lightSourcePos = gameObject.transform.position;
+                lightSourceZRotation = gameObject.transform.rotation.eulerAngles.z + 90;
+            }
+            else if (User.GetComponent<Human>() != null)
+            {
+                GameObject handObj;
+                if (HandSide == HandSide.Left)
+                    handObj = User.transform.Find("LeftHandPoint").gameObject;
+                else
+                    handObj = User.transform.Find("RightHandPoint").gameObject;
+
+                lightSourcePos = handObj.transform.position;
+                lightSourceZRotation = handObj.transform.rotation.eulerAngles.z;
+            }
+            else
+            {
+                // TODO If not a human
+                throw new NotImplementedException();
+            }
+
+            lightSourcePos.z = VerticalOffset;
+        }
+
+        [Client]
+        void FixedUpdate()
+        {
+            if (lightSource != null)
+            {
+                lightSource.transform.position = Vector3.Lerp(lightSource.transform.position, lightSourcePos,
+                    LerpRate * Time.deltaTime);
+                lightSource.transform.rotation = Quaternion.Lerp(lightSource.transform.rotation, Quaternion.Euler(0, 0, lightSourceZRotation),
+                    LerpRate * Time.deltaTime);
+            }
+
+            // Sprite changing
+            if (TurnedOn)
+                gameObject.GetComponent<SpriteRenderer>().sprite = StateOnSprite;
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = StateOffSprite;
+            }
+        }
+
     }
 }

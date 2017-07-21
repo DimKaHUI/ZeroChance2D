@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -35,7 +36,10 @@ namespace ZeroChance2D
 
         public virtual void Use()
         {
+
+            string user = User.name;
             
+            Debug.Log(String.Format("User: {0}, Item name: {1}, Hand: {2}", user, ItemName, HandSide));
         }
 
         [Client]

@@ -103,12 +103,14 @@ MonoBehaviour:
   Visible: 1
   TurnedOn: 0
   Range: 10
-  VerticalOffset: 0
+  VerticalOffset: -8
   StateOnSprite: {fileID: 21300000, guid: aa760c9114a3a134e82b0c7ca91b50c0, type: 3}
   StateOffSprite: {fileID: 21300000, guid: 866c8c7f5573d96488a9c633d40bbee2, type: 3}
   ClickSounds: []
   LightSourcePrefab: {fileID: 1968476451917380, guid: bcdf1728e519b4649af630425c2b43c9,
     type: 2}
+  lightSource: {fileID: 0}
+  lightSourcePos: {x: 0, y: 0, z: 0}
 --- !u!114 &114285388013757046
 MonoBehaviour:
   m_ObjectHideFlags: 1

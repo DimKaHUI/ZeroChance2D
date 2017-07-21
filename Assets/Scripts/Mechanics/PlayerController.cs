@@ -232,8 +232,7 @@ namespace ZeroChance2D
                     {
                         item.GetComponent<Item>().Visible = false;
                         gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = item;
-                        item.GetComponent<Item>().User = gameObject;
-                        item.GetComponent<Item>().HandSide = ActiveHand;
+                        CmdSetupItemOwner(item, gameObject, ActiveHand);
                     }
                     break;
                 case HandSide.Right:
@@ -241,8 +240,7 @@ namespace ZeroChance2D
                     {
                         item.GetComponent<Item>().Visible = false;
                         gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = item;
-                        item.GetComponent<Item>().User = gameObject;
-                        item.GetComponent<Item>().HandSide = ActiveHand;
+                        CmdSetupItemOwner(item, gameObject, ActiveHand);
                     }
                     break;
             }
@@ -254,15 +252,42 @@ namespace ZeroChance2D
             {
                 case HandSide.Left:
                     CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], Ui.UnderCursorPoint);
+                    CmdSetupItemOwner(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], null, ActiveHand);
                     gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = null;
                     break;
                 case HandSide.Right:
                     CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], Ui.UnderCursorPoint);
+                    CmdSetupItemOwner(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], null, ActiveHand);
                     gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = null;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("side", side, null);
             }
+        }
+
+        [Command]
+        void CmdSetupItemOwner(GameObject item, GameObject owner, HandSide side)
+        {
+            item.GetComponent<Item>().User = owner;
+            item.GetComponent<Item>().HandSide = side;
+        }
+
+        [Command]
+        public void CmdHandledItemClick(GameObject player, bool rightSide)
+        {
+            var human = player.GetComponent<Human>();
+            if (rightSide)
+            {
+                if (human.Equipment[1] != null)
+                    human.Equipment[1].GetComponent<Item>().Use();
+
+            }
+            else
+            {
+                if (human.Equipment[0] != null)
+                    human.Equipment[0].GetComponent<Item>().Use();
+            }
+            Debug.Log("Flashlight called! isServer: " + isServer);
         }
 
         [Command]
