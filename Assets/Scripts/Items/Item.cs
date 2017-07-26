@@ -22,8 +22,6 @@ namespace ZeroChance2D
         [SyncVar]
         public DescriptionParameters DescriptionParameters;
 
-
-        [SyncVar(hook = "Visualization")]
         public bool Visible = true;
         public virtual void Use(GameObject user, GameObject target = null)
         {
@@ -44,8 +42,12 @@ namespace ZeroChance2D
         }
 
 
-        [Client]
-        public void Visualization(bool Visible)
+        void Update()
+        {
+            Visualization();
+        }
+
+        public void Visualization()
         {
             if (!Visible)
             {
@@ -56,5 +58,6 @@ namespace ZeroChance2D
                 gameObject.layer = LayerMask.NameToLayer("Environment");
             }
         }
+
     }
 }
