@@ -20,6 +20,7 @@ namespace ZeroChance2D
         public Image HealthIndicator;
 
         public GameObject DescriptionPanel;
+        public GameObject UiMask;
        
         private GameObject playerObj;
         private Human playerHuman;
@@ -48,17 +49,40 @@ namespace ZeroChance2D
         }
         public GameObject UnderCursor(string layer)
         {
+            //var hitItem = Physics2D.Raycast(UnderCursorPoint, new Vector2(0, 0), Mathf.Infinity,
+                //LayerMask.NameToLayer(layer));
             var hitItem = Physics2D.Raycast(UnderCursorPoint, new Vector2(0, 0), Mathf.Infinity,
-                LayerMask.NameToLayer(layer));
+            LayerMask.NameToLayer(layer));
 
-            var collider = hitItem.collider;
-            if (collider == null)
+            var hitCollider = hitItem.collider;
+            if (hitCollider == null)
                 return null;
-            if (collider.gameObject.GetComponent<SpriteRenderer>().sortingLayerName == layer)
-                return collider.gameObject;
+            if (hitCollider.gameObject.GetComponent<SpriteRenderer>() == null)
+                return null;
+            if (hitCollider.gameObject.GetComponent<SpriteRenderer>().sortingLayerName == layer)
+                return hitCollider.gameObject;
             return null;
         }
 
+        public GameObject CursorUi()
+        {
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+
+            pointerData.position = Input.mousePosition;
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            if (results.Count > 0)
+            {
+                foreach (var res in results)
+                {
+                    if (res.gameObject.layer == LayerMask.NameToLayer("UI"))
+                        return res.gameObject;
+                }
+            }
+            return null;
+        }
         public bool IsCursorUponUi()
         {
             PointerEventData pointerData = new PointerEventData(EventSystem.current);
@@ -184,9 +208,5 @@ namespace ZeroChance2D
             PlayerCtrl.CmdHandledItemClick(playerObj, rightSide);
         }
 
-        public void ShowDescription()
-        {
-            
-        }
     }
 }
