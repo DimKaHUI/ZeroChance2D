@@ -8,7 +8,7 @@ namespace ZeroChance2D
 
     public class PlayerEquipmentSync : NetworkBehaviour
     {
-        [SyncVar] public Equipment SyncEquipment;
+        [SyncVar] public Equipment SyncEquipment = new Equipment(3);
 
         void FixedUpdate()
         {
@@ -25,8 +25,7 @@ namespace ZeroChance2D
 
         void UpdateEquipment()
         {
-            gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = SyncEquipment[Equipment.EquipmentSlot.LeftHand];
-            gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = SyncEquipment[Equipment.EquipmentSlot.RightHand];
+            gameObject.GetComponent<Human>().Equipment = SyncEquipment;
         }
 
         [Client]
