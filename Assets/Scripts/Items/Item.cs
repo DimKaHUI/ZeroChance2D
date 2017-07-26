@@ -16,8 +16,9 @@ namespace ZeroChance2D
         [SyncVar]
         public GameObject User;
 
+        [SyncVar]
         public HandSide HandSide;
-        //public string Description;
+
         [SyncVar]
         public DescriptionParameters DescriptionParameters;
 
@@ -31,7 +32,7 @@ namespace ZeroChance2D
 
         public virtual void Use(GameObject user, Vector2 targetPoint)
         {
-            
+
         }
 
         public virtual void Use()
@@ -42,8 +43,9 @@ namespace ZeroChance2D
             Debug.Log(String.Format("User: {0}, Item name: {1}, Hand: {2}", user, ItemName, HandSide));
         }
 
+
         [Client]
-        void Visualization(bool Visible)
+        public void Visualization(bool Visible)
         {
             if (!Visible)
             {
