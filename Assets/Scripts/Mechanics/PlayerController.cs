@@ -167,6 +167,8 @@ namespace ZeroChance2D
                 }
 
                 #endregion
+
+                ShowMovablesGui();
             }
 
             #region Shooting
@@ -265,6 +267,41 @@ namespace ZeroChance2D
             }
         }
 
+        delegate void ShowStorageGui(GameObject user);
+        void ShowMovablesGui()
+        {
+            if (Ui.UnderCursor("Items") != null || Ui.IsCursorUponUi())
+            {
+                return;
+            }
+            if (playerHuman.Equipment[(int) ActiveHand] != null)
+            {
+                Debug.Log("Hand is not empty!");
+                return;
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameObject movable = Ui.UnderCursor("Movables");
+                if (movable != null)
+                {
+                    Storage storage = movable.GetComponent<Storage>();
+                    ShowStorageGui showGui = storage.ShowGui;
+                    showGui(gameObject);
+                }
+            }
+
+        }
+
+        [Command]
+        public void CmdRemoveFromStorage(GameObject storage, GameObject item)
+        {
+            Debug.Log("Server invokes remove from storage");
+            item.GetComponent<Item>().User = gameObject;
+            storage.GetComponent<Storage>().RemoveItem(item);
+        }
+
+        
+
         [Command]
         void CmdSetupItemOwner(GameObject item, GameObject owner, HandSide side)
         {
@@ -287,7 +324,6 @@ namespace ZeroChance2D
                 if (human.Equipment[0] != null)
                     human.Equipment[0].GetComponent<Item>().Use();
             }
-            Debug.Log("Flashlight called! isServer: " + isServer);
         }
 
         [Command]
