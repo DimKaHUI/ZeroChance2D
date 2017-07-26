@@ -8,15 +8,16 @@ using UnityEngine.UI;
 namespace ZeroChance2D
 {
     [Serializable]
-    public class Inventory
+    public struct Inventory
     {
-        public GameObject[] StoredList = new GameObject[0];
+        public GameObject[] StoredList;
     }
     public class Storage : NetworkBehaviour
     {
         public GameObject GuiPrefab;
         public int MaxSlots;
-        public Inventory Inventory = new Inventory();
+        [SyncVar]
+        public Inventory Inventory;
         public string MandatoryItemName;
         public int MaximumItemSize;
 
@@ -53,25 +54,28 @@ namespace ZeroChance2D
 
         public virtual bool RemoveItem(GameObject item)
         {
-            bool removed = false;
-            GameObject[] array = new GameObject[Inventory.StoredList.Length - 1];
-            int j = 0;
-            for (int i = 0; i < Inventory.StoredList.Length - 1; i++)
-            {
-                if (Inventory.StoredList[i] != item)
+            int len = Inventory.StoredList.Length;
+            Inventory.StoredList = ExcludeFromArray(Inventory.StoredList, item);
+            return len == Inventory.StoredList.Length;
+        }
+
+        public static T[] ExcludeFromArray<T>(T[] array, T element) where T : class
+        {
+
+            int count = 0;
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] == element)
                 {
-                    array[j] = Inventory.StoredList[i];
-                    j++;
+                    array[i] = null;
+                    count++;
+                    for (int j = i; j < array.Length - 1; j++)
+                    {
+                        array[j] = array[j + 1];
+                    }
                 }
-                else
-                {
-                    removed = true;
-                    break;
-                }
-            }
-            Inventory.StoredList = array;
-            Debug.Log("Item removed!");
-            return removed;
+
+            Array.Resize(ref array, array.Length - count);
+            return array;
         }
 
         public static TransferResult TransferItem(Storage source, Storage target, GameObject itemObj)
