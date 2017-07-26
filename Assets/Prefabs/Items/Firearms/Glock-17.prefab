@@ -181,9 +181,11 @@ MonoBehaviour:
   SlotSize: 4
   Weight: 0.625
   ItemName: Glock-17
+  User: {fileID: 0}
+  HandSide: 0
   DescriptionParameters:
-    WrappedSize: {x: 90, y: 22}
-    UnwrappedSize: {x: 170, y: 40}
+    WrappedSize: {x: 80, y: 22}
+    UnwrappedSize: {x: 120, y: 40}
     Description: A simple pistol
     ExternalItemName: Glock-17
   Visible: 1
