@@ -21,6 +21,7 @@ namespace ZeroChance2D
         // Update is called once per frame
         void Update()
         {
+            Visualization();
             Weight = initWeight + colaCan.Amount / 1000f;
         }
     }
