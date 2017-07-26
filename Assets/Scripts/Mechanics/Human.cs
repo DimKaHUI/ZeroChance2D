@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 namespace ZeroChance2D
 {
     [Serializable]
-    public class Damage
+    public struct Damage
     {
         public float Brute;
         public float Burn;
@@ -18,12 +18,6 @@ namespace ZeroChance2D
             Burn = burn;
         }
 
-        public Damage()
-        {
-            Brute = 0;
-            Burn = 0;
-        }
-
         public static Damage operator -(Damage target, Damage source)
         {
             return new Damage(target.Brute - source.Brute, target.Burn - source.Burn);
@@ -31,17 +25,30 @@ namespace ZeroChance2D
     }
 
     [Serializable]
-    public class LifeSystem
+    public struct LifeSystem
     {
-        public float BrainHealth = 100f;
-        public float ToxinDamage = 0;
-        public Damage HeadDamage = new Damage();
-        public Damage LeftHanDamage = new Damage();
-        public Damage RightHandDamage = new Damage();
-        public Damage LeftLegDamage = new Damage();
-        public Damage RightLegDamage = new Damage();
-        public Damage ChestDamage = new Damage();
-        public Damage GroinDamage = new Damage();
+        public float BrainHealth;
+        public float ToxinDamage;
+        public Damage HeadDamage;
+        public Damage LeftHandDamage;
+        public Damage RightHandDamage;
+        public Damage LeftLegDamage;
+        public Damage RightLegDamage;
+        public Damage ChestDamage;
+        public Damage GroinDamage;
+
+        public LifeSystem(float brainDamage)
+        {
+            BrainHealth = brainDamage;
+            ToxinDamage = 0f;
+            HeadDamage = new Damage(0, 0);
+            LeftHandDamage = new Damage(0, 0);
+            RightHandDamage = new Damage(0, 0);
+            LeftLegDamage = new Damage(0, 0);
+            RightLegDamage = new Damage(0, 0);
+            ChestDamage = new Damage(0, 0);
+            GroinDamage = new Damage(0, 0);
+        }
     }
 
     [Serializable]
@@ -51,13 +58,13 @@ namespace ZeroChance2D
     }
 
     [Serializable]
-    public class Equipment
+    public struct Equipment
     {
         public enum EquipmentSlot { LeftHand, RightHand, Backpack}
 
         public const int AmountOfSlots = 3;
 
-        public GameObject[] Inventory = new GameObject[AmountOfSlots];
+        public GameObject[] Inventory;
 
         public GameObject this[EquipmentSlot slot]
         {
@@ -81,6 +88,11 @@ namespace ZeroChance2D
 
             return true;
         }
+
+        public Equipment(int amount)
+        {
+            Inventory = new GameObject[amount];
+        }
     }
 
     [Serializable]
@@ -93,6 +105,6 @@ namespace ZeroChance2D
         public float Nutrition = 100f;
         public State State;
         public float RotationSpeed = 60f;
-        public Equipment Equipment = new Equipment();
+        public Equipment Equipment = new Equipment(Equipment.AmountOfSlots);
     }
 }
