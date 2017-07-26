@@ -45,7 +45,6 @@ namespace ZeroChance2D
                     GameObject item = Instantiate(SpawnableItems[0].Item, gameObject.transform.position + PerItemOffset * i,
                         gameObject.transform.rotation);
                     item.transform.SetParent(GameObject.Find("Environment").transform);
-                    //Debug.Log(item.name + " spawned at " + item.transform.position);
                     if (Storage != null)
                     {
                         Storage.TransferResult result = Storage.AddItem(item);
