@@ -105,10 +105,31 @@ namespace ZeroChance2D
         {
             if (lightSource != null)
             {
-                lightSource.transform.position = Vector3.Lerp(lightSource.transform.position, lightSourcePos,
-                    LerpRate * Time.deltaTime);
-                lightSource.transform.rotation = Quaternion.Lerp(lightSource.transform.rotation, Quaternion.Euler(0, 0, lightSourceZRotation),
-                    LerpRate * Time.deltaTime);
+                if (User == null)
+                {
+                    lightSource.transform.position = Vector3.Lerp(lightSource.transform.position, lightSourcePos,
+                        LerpRate * Time.deltaTime);
+                    lightSource.transform.rotation = Quaternion.Lerp(lightSource.transform.rotation,
+                        Quaternion.Euler(0, 0, lightSourceZRotation),
+                        LerpRate * Time.deltaTime);
+                }
+                else
+                {
+                    if (HandSide == HandSide.Left)
+                    {
+                        var pos = User.transform.Find("LeftHandPoint").position;
+                        pos.z = VerticalOffset;
+                        lightSource.transform.position = pos;
+                        lightSource.transform.rotation = User.transform.Find("LeftHandPoint").rotation;
+                    }
+                    else
+                    {
+                        var pos = User.transform.Find("RightHandPoint").position;
+                        pos.z = VerticalOffset;
+                        lightSource.transform.position = pos;
+                        lightSource.transform.rotation = User.transform.Find("RightHandPoint").rotation;
+                    }
+                }
             }
 
             // Sprite changing
