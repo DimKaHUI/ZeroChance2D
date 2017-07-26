@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114339403378647902}
   - component: {fileID: 60682960814006114}
   - component: {fileID: 114906608847464902}
+  - component: {fileID: 114867348146654894}
   m_Layer: 8
   m_Name: CokaColaCan
   m_TagString: Untagged
@@ -149,6 +150,18 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114867348146654894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585134273411400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb91fa0d0242c59468fa5620ac2da6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncVisible: 1
 --- !u!114 &114906608847464902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,6 +176,8 @@ MonoBehaviour:
   SlotSize: 2
   Weight: 0.001
   ItemName: Can of Cola
+  User: {fileID: 0}
+  HandSide: 0
   DescriptionParameters:
     WrappedSize: {x: 90, y: 22}
     UnwrappedSize: {x: 180, y: 80}

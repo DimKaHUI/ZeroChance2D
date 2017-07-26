@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114522141623298252}
   - component: {fileID: 114285388013757046}
   - component: {fileID: 60029221427444540}
+  - component: {fileID: 114154787228505466}
   m_Layer: 8
   m_Name: Flashlight
   m_TagString: Untagged
@@ -112,6 +113,18 @@ MonoBehaviour:
     type: 2}
   lightSource: {fileID: 0}
   lightSourcePos: {x: 0, y: 0, z: 0}
+--- !u!114 &114154787228505466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1695461511100246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb91fa0d0242c59468fa5620ac2da6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncVisible: 1
 --- !u!114 &114285388013757046
 MonoBehaviour:
   m_ObjectHideFlags: 1

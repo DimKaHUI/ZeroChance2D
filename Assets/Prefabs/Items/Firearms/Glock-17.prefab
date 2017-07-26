@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114146349430366692}
   - component: {fileID: 114721152945118808}
   - component: {fileID: 114345416015927658}
+  - component: {fileID: 114058497749073456}
   m_Layer: 8
   m_Name: Glock-17
   m_TagString: Untagged
@@ -123,6 +124,18 @@ PolygonCollider2D:
       - {x: 0.21, y: 0.19}
       - {x: 0.19999999, y: -0.049999997}
       - {x: 0.04, y: -0.06}
+--- !u!114 &114058497749073456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1239775659249402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb91fa0d0242c59468fa5620ac2da6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncVisible: 0
 --- !u!114 &114146349430366692
 MonoBehaviour:
   m_ObjectHideFlags: 1
