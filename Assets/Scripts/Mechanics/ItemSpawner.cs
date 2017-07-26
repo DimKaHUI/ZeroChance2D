@@ -45,6 +45,7 @@ namespace ZeroChance2D
                     GameObject item = Instantiate(SpawnableItems[0].Item, gameObject.transform.position + PerItemOffset * i,
                         gameObject.transform.rotation);
                     item.transform.SetParent(GameObject.Find("Environment").transform);
+                    NetworkServer.Spawn(item);
                     if (Storage != null)
                     {
                         Storage.TransferResult result = Storage.AddItem(item);
@@ -52,7 +53,7 @@ namespace ZeroChance2D
                         {
                             case Storage.TransferResult.Success:
                                 item.GetComponent<Item>().Visible = false;
-                                item.layer = LayerMask.NameToLayer("Hidden");
+                                //item.GetComponent<Item>().RpcSetVisibility(false);
                                 break;
                             case Storage.TransferResult.SourceHasNoItem:
                                 Debug.Log("Src has no item!");
@@ -70,7 +71,7 @@ namespace ZeroChance2D
                                 throw new ArgumentOutOfRangeException();
                         }
                     }
-                    NetworkServer.Spawn(item);
+                    
                 }
                 
             }
