@@ -11,13 +11,17 @@ namespace ZeroChance2D
     public struct Inventory
     {
         public GameObject[] StoredList;
+
+        public Inventory(int size)
+        {
+            StoredList = new GameObject[size];
+        }
     }
     public class Storage : NetworkBehaviour
     {
         public GameObject GuiPrefab;
         public int MaxSlots;
-        [SyncVar]
-        public Inventory Inventory;
+        public Inventory Inventory = new Inventory(0);
         public string MandatoryItemName;
         public int MaximumItemSize;
 
