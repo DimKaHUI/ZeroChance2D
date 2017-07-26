@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114522141623298252}
   - component: {fileID: 114285388013757046}
   - component: {fileID: 60029221427444540}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   User: {fileID: 0}
   HandSide: 0
   DescriptionParameters:
-    WrappedSize: {x: 100, y: 50}
+    WrappedSize: {x: 100, y: 30}
     UnwrappedSize: {x: 100, y: 60}
     Description: Item that emits a strip of light
     ExternalItemName: Flashlight
@@ -104,6 +104,7 @@ MonoBehaviour:
   TurnedOn: 0
   Range: 10
   VerticalOffset: -8
+  LerpRate: 30
   StateOnSprite: {fileID: 21300000, guid: aa760c9114a3a134e82b0c7ca91b50c0, type: 3}
   StateOffSprite: {fileID: 21300000, guid: 866c8c7f5573d96488a9c633d40bbee2, type: 3}
   ClickSounds: []
