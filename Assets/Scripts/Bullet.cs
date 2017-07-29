@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using ZeroChance2D.Assets.Scripts.Mechanics;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Collider2D))]
