@@ -231,7 +231,7 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
             gameObject.GetComponent<Human>().Equipment[slot] = item;
         }
 
-        void PickItem(GameObject item)
+        public void PickItem(GameObject item)
         {
             switch (ActiveHand)
             {
