@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ZeroChance2D.Assets.Scripts.Items;
+using ZeroChance2D.Assets.Scripts.Mechanics;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.UI
 {
     [Serializable]
     public struct DescriptionParameters
@@ -62,7 +63,7 @@ namespace ZeroChance2D
 
         void Update()
         {
-            if (Active && UiManager.GetComponent<UIManger>().PlayerCtrl.CurrentMode == ControllMode.Interaction)
+            if (Active && UiManager.GetComponent<UIManager>().PlayerCtrl.CurrentMode == ControllMode.Interaction)
             {
                 DescriptionPanelObject.SetActive(true);
                 Vector2 panelpos = Input.mousePosition;
