@@ -1,21 +1,83 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using ZeroChance2D.Assets.Scripts.Items;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Mechanics
 {
     [Serializable]
-    public struct Inventory
+    public class Inventory: ICloneable
     {
-        public GameObject[] StoredList;
+        public GameObject[] StoredList = new GameObject[0];
 
         public Inventory(int size)
         {
             StoredList = new GameObject[size];
         }
+
+        public Inventory()
+        {
+            
+        }
+
+        public object Clone()
+        {
+            var inv = new Inventory();
+            inv.StoredList = new GameObject[StoredList.Length];
+            for (int i = 0; i < StoredList.Length; i++)
+            {
+                inv.StoredList[i] = StoredList[i];
+            }
+            return inv;
+        }
+
+        public int IndexOf(GameObject itemGameObject)
+        {
+            for (int i = 0; i < StoredList.Length; i++)
+            {
+                if (StoredList[i] == itemGameObject)
+                    return i;
+            }
+            return -1;
+        }
+
+        /*public  bool IsEqual(Inventory equipment)
+        {
+            
+            if (StoredList == null && equipment.StoredList == null)
+                return true;
+
+            if (StoredList == null && equipment.StoredList != null)
+                return false;
+            
+            if (StoredList != null && equipment.StoredList == null)
+                return false;
+
+            if (equipment.StoredList != null && StoredList != null)
+            {
+                if (equipment.StoredList.Length != StoredList.Length)
+                    return false;
+
+                for (int i = 0; i < StoredList.Length; i++)
+                {
+                    if (StoredList[i] != equipment.StoredList[i])
+                        return false;
+                }
+            }
+            return true;
+        }
+        
+        public static bool operator ==(Inventory a, Inventory b)
+        {
+            if (a.IsEqual(b))
+                return true;
+            return false;
+        }
+        public static bool operator !=(Inventory a, Inventory b)
+        {
+            return !(a == b);
+        }*/
     }
     public class Storage : NetworkBehaviour
     {
@@ -46,6 +108,7 @@ namespace ZeroChance2D
         public virtual TransferResult AddItem(GameObject itemObj)
         {
             if(itemObj.GetComponent<Item>() == null)
+                return TransferResult.NotAnItem;
             if (itemObj.GetComponent<Item>().ItemName != MandatoryItemName && MandatoryItemName != "")
                 return TransferResult.UnsuitableItem;
             if (itemObj.GetComponent<Item>().SlotSize > MaximumItemSize && MaximumItemSize > 0)
@@ -56,6 +119,7 @@ namespace ZeroChance2D
                 return TransferResult.AlreadyContains;
             Array.Resize(ref Inventory.StoredList, Inventory.StoredList.Length + 1);
             Inventory.StoredList[Inventory.StoredList.Length - 1] = itemObj;
+            itemObj.GetComponent<Item>().User = gameObject;
             return TransferResult.Success;
         }
 
@@ -99,7 +163,6 @@ namespace ZeroChance2D
             target.AddItem(itemObj);
             return TransferResult.Success;
         }
-        public enum TransferResult { Success, SourceHasNoItem, NoFreeSpace, UnsuitableItem, TooLargeItem}
         public enum TransferResult { Success, SourceHasNoItem, NoFreeSpace, UnsuitableItem, TooLargeItem, NotAnItem, AlreadyContains }
 
         public virtual void ShowGui(GameObject user)
