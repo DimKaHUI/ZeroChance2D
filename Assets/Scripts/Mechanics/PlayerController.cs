@@ -374,7 +374,7 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
         }
 
         [Command]
-        void CmdSetItemLocation(GameObject item, Vector3 location)
+        public void CmdSetItemLocation(GameObject item, Vector3 location)
         {
             item.transform.position = location;
             item.GetComponent<Item>().Visible = true;
