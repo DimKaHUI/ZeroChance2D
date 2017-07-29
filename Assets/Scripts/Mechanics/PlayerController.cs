@@ -226,7 +226,7 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
 
 
         [Command]
-        void CmdSetupEquipment(int slot, GameObject item)
+        public void CmdSetupEquipment(int slot, GameObject item)
         {
             gameObject.GetComponent<Human>().Equipment[slot] = item;
         }
