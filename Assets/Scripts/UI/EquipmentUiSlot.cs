@@ -18,7 +18,6 @@ namespace ZeroChance2D.Assets.Scripts.UI
                 return false;
             if (uiManager.PlayerHuman.Equipment[Slot] == null)
             {
-                //uiManager.PlayerHuman.Equipment[Slot] = item;
                 uiManager.PlayerCtrl.CmdSetupEquipment((int)Slot, item);
                 return true;
             }
@@ -32,17 +31,14 @@ namespace ZeroChance2D.Assets.Scripts.UI
 
         public virtual void OnSuccessfullDrag()
         {
-            //uiManager.PlayerHuman.Equipment[Slot] = null;
             uiManager.PlayerCtrl.CmdSetupEquipment((int)Slot, null);
         }
 
-        // Use this for initialization
         void Start()
         {
             uiManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
         }
 
-        // Update is called once per frame
         void Update()
         {
 
