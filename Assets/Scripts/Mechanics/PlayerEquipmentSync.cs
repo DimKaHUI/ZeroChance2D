@@ -10,40 +10,29 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
 
         void FixedUpdate()
         {
-            if (!isLocalPlayer)
-            {
-                UpdateEquipment();
-            }
-            else
-            {
-                TransmitEquipment();
-            }
+            UpdateEquipment();
+            DownloadEquipment();
         }
 
-
+        [ServerCallback]
         void UpdateEquipment()
         {
-            gameObject.GetComponent<Human>().Equipment = (Equipment)SyncEquipment.Clone();
-        }
-
-        [Client]
-        void TransmitEquipment()
-        {
-            if (!SyncEquipment.IsEqual(gameObject.GetComponent<Human>().Equipment))
-                CmdSendEquipmentToServer(gameObject.GetComponent<Human>().Equipment);
-        }
-
-        [Command]
-        void CmdSendEquipmentToServer(Equipment equipment)
-        {
-
-            for (Equipment.EquipmentSlot i = 0; i < (Equipment.EquipmentSlot)Equipment.AmountOfSlots; i++)
+            if (!isServer)
+                return;
+            if (!gameObject.GetComponent<Human>().Equipment.IsEqual(SyncEquipment))
             {
-                SyncEquipment[i] = equipment[i];
-                if (SyncEquipment[i] != null)
-                {
-                    SyncEquipment[i].GetComponent<Item>().Visible = false;
-                }
+                SyncEquipment = (Equipment)gameObject.GetComponent<Human>().Equipment.Clone();
+            }
+        }
+
+        [ClientCallback]
+        void DownloadEquipment()
+        {
+            if (isServer)
+                return;
+            if (!gameObject.GetComponent<Human>().Equipment.IsEqual(SyncEquipment))
+            {
+                gameObject.GetComponent<Human>().Equipment = (Equipment) SyncEquipment.Clone();
             }
         }
 
