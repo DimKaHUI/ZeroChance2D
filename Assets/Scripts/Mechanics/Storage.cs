@@ -45,6 +45,7 @@ namespace ZeroChance2D
 
         public virtual TransferResult AddItem(GameObject itemObj)
         {
+            if(itemObj.GetComponent<Item>() == null)
             if (itemObj.GetComponent<Item>().ItemName != MandatoryItemName && MandatoryItemName != "")
                 return TransferResult.UnsuitableItem;
             if (itemObj.GetComponent<Item>().SlotSize > MaximumItemSize && MaximumItemSize > 0)
