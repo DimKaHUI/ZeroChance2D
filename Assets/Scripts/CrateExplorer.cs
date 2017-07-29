@@ -128,7 +128,8 @@ namespace ZeroChance2D.Assets.Scripts
             var controller = User.GetComponent<PlayerController>();
             if (User.GetComponent<Human>().Equipment[(int) controller.ActiveHand] == null)
             {
-                User.GetComponent<Human>().Equipment[(int) controller.ActiveHand] = itemObj;
+                //User.GetComponent<Human>().Equipment[(int) controller.ActiveHand] = itemObj;
+                controller.CmdSetupEquipment((int)controller.ActiveHand, itemObj);
                 controller.CmdRemoveFromStorage(AttachedStorage.gameObject, itemObj);
                 UpdateUI();
             }
@@ -193,7 +194,8 @@ namespace ZeroChance2D.Assets.Scripts
             if (equipmentPos != -1)
             {
                 User.GetComponent<PlayerController>().CmdAddToStorage(AttachedStorage.gameObject, item);
-                User.GetComponent<Human>().Equipment[equipmentPos] = null;
+                //User.GetComponent<Human>().Equipment[equipmentPos] = null;
+                User.GetComponent<PlayerController>().CmdSetupEquipment(equipmentPos, null);
                 UpdateUI();
             }
             else
@@ -216,11 +218,14 @@ namespace ZeroChance2D.Assets.Scripts
         {
             if (dragGameObject.GetComponent<Item>() != null)
             {
-                if (AttachedStorage.AddItem(dragGameObject) == Storage.TransferResult.Success)
+                /*if (AttachedStorage.AddItem(dragGameObject) == Storage.TransferResult.Success)
                 {
                     User.GetComponent<PlayerController>().CmdAddToStorage(AttachedStorage.gameObject, dragGameObject);
                     return true;
-                }
+                }*/
+                User.GetComponent<PlayerController>()
+                    .CmdPutIntoStorage(AttachedStorage.gameObject,
+                        uiManager.PlayerHuman.Equipment.IndexOf(dragGameObject));
 
             }
             return false;

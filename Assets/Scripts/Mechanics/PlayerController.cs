@@ -224,23 +224,28 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
             #endregion
         }
 
-        void PickItem(GameObject item)
+
+        [Command]
+        public void CmdSetupEquipment(int slot, GameObject item)
+        {
+            gameObject.GetComponent<Human>().Equipment[slot] = item;
+        }
+
+        public void PickItem(GameObject item)
         {
             switch (ActiveHand)
             {
                 case HandSide.Left:
                     if (gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] == null)
                     {
-                        item.GetComponent<Item>().Visible = false;
-                        gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = item;
+                        CmdSetupEquipment(0, item);
                         CmdSetupItem(item, gameObject, ActiveHand, false);
                     }
                     break;
                 case HandSide.Right:
                     if (gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] == null)
                     {
-                        item.GetComponent<Item>().Visible = false;
-                        gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = item;
+                        CmdSetupEquipment(1, item);
                         CmdSetupItem(item, gameObject, ActiveHand, false);
                     }
                     break;
@@ -254,12 +259,12 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
                 case HandSide.Left:
                     CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], Ui.PointToWorldLoc(Input.mousePosition));
                     CmdSetupItem(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], null, ActiveHand, true);
-                    gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = null;
+                    CmdSetupEquipment(0, null);
                     break;
                 case HandSide.Right:
                     CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], Ui.PointToWorldLoc(Input.mousePosition));
                     CmdSetupItem(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], null, ActiveHand, true);
-                    gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = null;
+                    CmdSetupEquipment(1, null);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("side", side, null);
@@ -273,12 +278,12 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
                 case HandSide.Left:
                     CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], position);
                     CmdSetupItem(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], null, ActiveHand, true);
-                    gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = null;
+                    CmdSetupEquipment(0, null);
                     break;
                 case HandSide.Right:
                     CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], position);
                     CmdSetupItem(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], null, ActiveHand, true);
-                    gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = null;
+                    CmdSetupEquipment(1, null);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("side", side, null);
@@ -292,7 +297,7 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
             {
                 CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[index], position);
                 CmdSetupItem(gameObject.GetComponent<Human>().Equipment[index], null, ActiveHand, true);
-                gameObject.GetComponent<Human>().Equipment[index] = null;
+                CmdSetupEquipment(index, null);
             }
         }
 
@@ -330,16 +335,21 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
         [Command]
         public void CmdAddToStorage(GameObject storage, GameObject item)
         {
-            bool success = false;
             int index = playerHuman.Equipment.IndexOf(item);
             if (index != -1)
             {
                 storage.GetComponent<Storage>().AddItem(item);
                 item.GetComponent<Item>().User = null;
-                //playerHuman.Equipment[index] = null;
             }
             else {Debug.LogWarning("Player does not have this Item instance");}
 
+        }
+
+        [Command]
+        public void CmdPutIntoStorage(GameObject storage, int slot)
+        {
+            storage.GetComponent<Storage>().AddItem(playerHuman.Equipment[slot]);
+            playerHuman.Equipment[slot] = null;
         }
         
 
@@ -369,7 +379,7 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
         }
 
         [Command]
-        void CmdSetItemLocation(GameObject item, Vector3 location)
+        public void CmdSetItemLocation(GameObject item, Vector3 location)
         {
             item.transform.position = location;
             item.GetComponent<Item>().Visible = true;

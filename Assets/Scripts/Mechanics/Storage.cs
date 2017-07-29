@@ -105,6 +105,7 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
             }
         }
 
+        [ServerCallback]
         public virtual TransferResult AddItem(GameObject itemObj)
         {
             if(itemObj.GetComponent<Item>() == null)
@@ -123,6 +124,7 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
             return TransferResult.Success;
         }
 
+        [ServerCallback]
         public virtual bool RemoveItem(GameObject item)
         {
             int len = Inventory.StoredList.Length;

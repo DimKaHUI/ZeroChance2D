@@ -310,7 +310,7 @@ MonoBehaviour:
   AttachedStorage: {fileID: 0}
   ContentField: {fileID: 224368571821763274}
   ClosingDelay: 0.5
-  UiUpdatedCooldown: 0.25
+  UiUpdatedCooldown: 0.1
 --- !u!114 &114200877011640502
 MonoBehaviour:
   m_ObjectHideFlags: 1
