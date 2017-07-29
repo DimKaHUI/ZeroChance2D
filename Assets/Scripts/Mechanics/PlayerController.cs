@@ -335,16 +335,21 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
         [Command]
         public void CmdAddToStorage(GameObject storage, GameObject item)
         {
-            bool success = false;
             int index = playerHuman.Equipment.IndexOf(item);
             if (index != -1)
             {
                 storage.GetComponent<Storage>().AddItem(item);
                 item.GetComponent<Item>().User = null;
-                //playerHuman.Equipment[index] = null;
             }
             else {Debug.LogWarning("Player does not have this Item instance");}
 
+        }
+
+        [Command]
+        public void CmdPutIntoStorage(GameObject storage, int slot)
+        {
+            storage.GetComponent<Storage>().AddItem(playerHuman.Equipment[slot]);
+            playerHuman.Equipment[slot] = null;
         }
         
 
