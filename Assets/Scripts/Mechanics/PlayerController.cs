@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Networking;
-using UnityEngine.UI;
+using ZeroChance2D.Assets.Scripts.Items;
+using ZeroChance2D.Assets.Scripts.UI;
+using ZeroChance2D.Assets.Scripts.Weapons;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Mechanics
 {
     public enum HandSide
     {
@@ -36,17 +35,18 @@ namespace ZeroChance2D
         private GameObject cameraObject;
         private Vector3 prevOffset = Vector3.zero;
         private Human playerHuman;
-        private UIManger Ui;
+        private UIManager Ui;
         
 
         // Use this for initialization
         void Start()
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 0, gameObject.transform.rotation.z);
+            playerHuman = gameObject.GetComponent<Human>();
 
             if (isLocalPlayer)
             {
-                Ui = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManger>();
+                Ui = GameObject.FindGameObjectWithTag("UIManager").GetComponent<UIManager>();
                 if(Ui == null)
                     Debug.LogWarning("No UIManager found!");
 
@@ -56,7 +56,6 @@ namespace ZeroChance2D
                 if (cameraObject == null)
                     Debug.LogError("Camera not found!");
                 prevOffset = Vector3.zero;
-                playerHuman = gameObject.GetComponent<Human>();
                 rig = gameObject.GetComponent<Rigidbody2D>();
             }
 
@@ -234,7 +233,7 @@ namespace ZeroChance2D
                     {
                         item.GetComponent<Item>().Visible = false;
                         gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = item;
-                        CmdSetupItemOwner(item, gameObject, ActiveHand);
+                        CmdSetupItem(item, gameObject, ActiveHand, false);
                     }
                     break;
                 case HandSide.Right:
@@ -242,24 +241,24 @@ namespace ZeroChance2D
                     {
                         item.GetComponent<Item>().Visible = false;
                         gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = item;
-                        CmdSetupItemOwner(item, gameObject, ActiveHand);
+                        CmdSetupItem(item, gameObject, ActiveHand, false);
                     }
                     break;
             }
         }
-
-        void PutItem(HandSide side)
+        [Obsolete("Use PutItem(HandSide, Vector2) instead")]
+        public void PutItem(HandSide side)
         {
             switch (side)
             {
                 case HandSide.Left:
-                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], Ui.UnderCursorPoint);
-                    CmdSetupItemOwner(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], null, ActiveHand);
+                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], Ui.PointToWorldLoc(Input.mousePosition));
+                    CmdSetupItem(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], null, ActiveHand, true);
                     gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = null;
                     break;
                 case HandSide.Right:
-                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], Ui.UnderCursorPoint);
-                    CmdSetupItemOwner(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], null, ActiveHand);
+                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], Ui.PointToWorldLoc(Input.mousePosition));
+                    CmdSetupItem(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], null, ActiveHand, true);
                     gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = null;
                     break;
                 default:
@@ -267,7 +266,37 @@ namespace ZeroChance2D
             }
         }
 
-        delegate void ShowStorageGui(GameObject user);
+        public void PutItem(HandSide side, Vector2 position)
+        {
+            switch (side)
+            {
+                case HandSide.Left:
+                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], position);
+                    CmdSetupItem(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand], null, ActiveHand, true);
+                    gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = null;
+                    break;
+                case HandSide.Right:
+                    CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], position);
+                    CmdSetupItem(gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand], null, ActiveHand, true);
+                    gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = null;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("side", side, null);
+            }
+        }
+
+        public void PutItem(GameObject item, Vector2 position)
+        {
+            int index = playerHuman.Equipment.IndexOf(item);
+            if (index != -1)
+            {
+                CmdSetItemLocation(gameObject.GetComponent<Human>().Equipment[index], position);
+                CmdSetupItem(gameObject.GetComponent<Human>().Equipment[index], null, ActiveHand, true);
+                gameObject.GetComponent<Human>().Equipment[index] = null;
+            }
+        }
+
+        //delegate void ShowStorageGui(GameObject user);
         void ShowMovablesGui()
         {
             if (Ui.UnderCursor("Items") != null || Ui.IsCursorUponUi())
@@ -276,7 +305,6 @@ namespace ZeroChance2D
             }
             if (playerHuman.Equipment[(int) ActiveHand] != null)
             {
-                Debug.Log("Hand is not empty!");
                 return;
             }
             if (Input.GetMouseButtonDown(0))
@@ -284,9 +312,9 @@ namespace ZeroChance2D
                 GameObject movable = Ui.UnderCursor("Movables");
                 if (movable != null)
                 {
-                    Storage storage = movable.GetComponent<Storage>();
-                    ShowStorageGui showGui = storage.ShowGui;
-                    showGui(gameObject);
+                    //Storage storage = movable.GetComponent<Storage>();
+                    //ShowStorageGui showGui = storage.ShowGui;
+                    movable.GetComponent<Storage>().ShowGui(gameObject);
                 }
             }
 
@@ -295,16 +323,30 @@ namespace ZeroChance2D
         [Command]
         public void CmdRemoveFromStorage(GameObject storage, GameObject item)
         {
-            Debug.Log("Server invokes remove from storage");
             item.GetComponent<Item>().User = gameObject;
             storage.GetComponent<Storage>().RemoveItem(item);
         }
 
+        [Command]
+        public void CmdAddToStorage(GameObject storage, GameObject item)
+        {
+            bool success = false;
+            int index = playerHuman.Equipment.IndexOf(item);
+            if (index != -1)
+            {
+                storage.GetComponent<Storage>().AddItem(item);
+                item.GetComponent<Item>().User = null;
+                //playerHuman.Equipment[index] = null;
+            }
+            else {Debug.LogWarning("Player does not have this Item instance");}
+
+        }
         
 
         [Command]
-        void CmdSetupItemOwner(GameObject item, GameObject owner, HandSide side)
+        public void CmdSetupItem(GameObject item, GameObject owner, HandSide side, bool visible)
         {
+            item.GetComponent<Item>().Visible = visible;
             item.GetComponent<Item>().User = owner;
             item.GetComponent<Item>().HandSide = side;
         }
