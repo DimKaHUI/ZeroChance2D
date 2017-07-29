@@ -51,6 +51,8 @@ namespace ZeroChance2D
                 return TransferResult.TooLargeItem;
             if (FreeSpace <= 0)
                 return TransferResult.NoFreeSpace;
+            if(Inventory.IndexOf(itemObj) != -1)
+                return TransferResult.AlreadyContains;
             Array.Resize(ref Inventory.StoredList, Inventory.StoredList.Length + 1);
             Inventory.StoredList[Inventory.StoredList.Length - 1] = itemObj;
             return TransferResult.Success;
@@ -97,6 +99,7 @@ namespace ZeroChance2D
             return TransferResult.Success;
         }
         public enum TransferResult { Success, SourceHasNoItem, NoFreeSpace, UnsuitableItem, TooLargeItem}
+        public enum TransferResult { Success, SourceHasNoItem, NoFreeSpace, UnsuitableItem, TooLargeItem, NotAnItem, AlreadyContains }
 
         public virtual void ShowGui(GameObject user)
         {
