@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using ZeroChance2D.Assets.Scripts.Mechanics;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Weapons
 {
     public class AmmoClip : Storage
     {

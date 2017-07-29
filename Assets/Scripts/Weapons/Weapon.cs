@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Weapons
 {
     
     public class Weapon : NetworkBehaviour
