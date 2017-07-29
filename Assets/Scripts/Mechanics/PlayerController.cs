@@ -224,6 +224,13 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
             #endregion
         }
 
+
+        [Command]
+        void CmdSetupEquipment(int slot, GameObject item)
+        {
+            gameObject.GetComponent<Human>().Equipment[slot] = item;
+        }
+
         void PickItem(GameObject item)
         {
             switch (ActiveHand)
@@ -231,16 +238,14 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
                 case HandSide.Left:
                     if (gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] == null)
                     {
-                        item.GetComponent<Item>().Visible = false;
-                        gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.LeftHand] = item;
+                        CmdSetupEquipment(0, item);
                         CmdSetupItem(item, gameObject, ActiveHand, false);
                     }
                     break;
                 case HandSide.Right:
                     if (gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] == null)
                     {
-                        item.GetComponent<Item>().Visible = false;
-                        gameObject.GetComponent<Human>().Equipment[Equipment.EquipmentSlot.RightHand] = item;
+                        CmdSetupEquipment(1, item);
                         CmdSetupItem(item, gameObject, ActiveHand, false);
                     }
                     break;
