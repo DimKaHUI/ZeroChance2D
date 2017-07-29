@@ -6,6 +6,7 @@ TagManager:
   tags:
   - UIManager
   - ItemSpawner
+  - CrateExplorer
   layers:
   - Default
   - TransparentFX
