@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
+using ZeroChance2D.Assets.Scripts.Mechanics;
+using ZeroChance2D.Assets.Scripts.UI;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Items
 {
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(NetworkTransform))]
@@ -12,9 +13,15 @@ namespace ZeroChance2D
         public int SlotSize;
         public float Weight;
         public string ItemName;
-        public string Description;
+        [SyncVar]
+        public GameObject User;
 
-        [SyncVar(hook = "Visualization")]
+        [SyncVar]
+        public HandSide HandSide;
+
+        [SyncVar]
+        public DescriptionParameters DescriptionParameters;
+
         public bool Visible = true;
         public virtual void Use(GameObject user, GameObject target = null)
         {
@@ -23,16 +30,24 @@ namespace ZeroChance2D
 
         public virtual void Use(GameObject user, Vector2 targetPoint)
         {
-            
+
         }
 
-        void FixedUpdate()
+        public virtual void Use()
         {
-            //Visualization(Visible);
+
+            string user = User.name;
+            
+            Debug.Log(String.Format("User: {0}, Item name: {1}, Hand: {2}", user, ItemName, HandSide));
         }
 
-        [Client]
-        void Visualization(bool Visible)
+
+        void Update()
+        {
+            Visualization();
+        }
+
+        public void Visualization()
         {
             if (!Visible)
             {
@@ -43,5 +58,6 @@ namespace ZeroChance2D
                 gameObject.layer = LayerMask.NameToLayer("Environment");
             }
         }
+
     }
 }

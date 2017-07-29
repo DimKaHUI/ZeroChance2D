@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using ZeroChance2D.Assets.Scripts.Mechanics;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Items
 {
     [RequireComponent(typeof(Collider2D))]
     public class ColaCan : Item
@@ -21,6 +20,7 @@ namespace ZeroChance2D
         // Update is called once per frame
         void Update()
         {
+            Visualization();
             Weight = initWeight + colaCan.Amount / 1000f;
         }
     }

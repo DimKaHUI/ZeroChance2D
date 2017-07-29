@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using ZeroChance2D.Assets.Scripts.Mechanics;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Weapons
 {
     public class AmmoClip : Storage
     {
@@ -10,9 +8,9 @@ namespace ZeroChance2D
 
         public bool RemoveBullet()
         {
-            if (StoredList.Count > 0)
+            if (Inventory.StoredList.Length > 0)
             {
-                StoredList.RemoveAt(StoredList.Count - 1);
+                RemoveItem(Inventory.StoredList[Inventory.StoredList.Length - 1]);
                 return true;
             }
             return false;
@@ -20,7 +18,7 @@ namespace ZeroChance2D
 
         public bool IsEmpty()
         {
-            if (StoredList.Count > 0)
+            if (Inventory.StoredList.Length > 0)
                 return false;
             return true;
         }

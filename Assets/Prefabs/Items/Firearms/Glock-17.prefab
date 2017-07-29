@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114146349430366692}
   - component: {fileID: 114721152945118808}
   - component: {fileID: 114345416015927658}
+  - component: {fileID: 114058497749073456}
   m_Layer: 8
   m_Name: Glock-17
   m_TagString: Untagged
@@ -39,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1239775659249402}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.87, z: 0}
+  m_LocalPosition: {x: 1.57, y: 2.01, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -123,6 +124,18 @@ PolygonCollider2D:
       - {x: 0.21, y: 0.19}
       - {x: 0.19999999, y: -0.049999997}
       - {x: 0.04, y: -0.06}
+--- !u!114 &114058497749073456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1239775659249402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb91fa0d0242c59468fa5620ac2da6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncVisible: 0
 --- !u!114 &114146349430366692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,13 +148,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponModel: 0
-  ShootsPerMinute: 600
+  BulletPrefab: {fileID: 1655963902373794, guid: 806bcd319d0e71149a57ac36edf630c9,
+    type: 2}
+  CooldownDuration: 0.5
   ShootingMode: 1
   InsertedClip: {fileID: 0}
   ShootAudioClips: []
   ReloadAudioClip: {fileID: 0}
   ScatterAngle: 0
-  InitialBulletSpeed: 375
+  InitialBulletSpeed: 20
+  BulletTimeout: 0
+  ReadyToShoot: 1
 --- !u!114 &114345416015927658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,7 +194,13 @@ MonoBehaviour:
   SlotSize: 4
   Weight: 0.625
   ItemName: Glock-17
-  Description: A simple pistol.
+  User: {fileID: 0}
+  HandSide: 0
+  DescriptionParameters:
+    WrappedSize: {x: 80, y: 22}
+    UnwrappedSize: {x: 120, y: 40}
+    Description: A simple pistol
+    ExternalItemName: Glock-17
   Visible: 1
 --- !u!114 &114721152945118808
 MonoBehaviour:
@@ -224,7 +247,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4a7c41d53e464734680d59a2a9f10c61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
