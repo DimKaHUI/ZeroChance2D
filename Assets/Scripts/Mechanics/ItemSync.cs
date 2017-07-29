@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
+using ZeroChance2D.Assets.Scripts.Items;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Mechanics
 {
     [RequireComponent(typeof(Item))]
     public class ItemSync : NetworkBehaviour
@@ -24,14 +23,14 @@ namespace ZeroChance2D
             ReceiveItemStatey();
         }
 
-        [Server]
+        [ServerCallback]
         void UpdateItemState()
         {
             if (isServer)
                 SyncVisible = item.Visible;
         }
 
-        [Client]
+        [ClientCallback]
         void ReceiveItemStatey()
         {
             if (!isServer)

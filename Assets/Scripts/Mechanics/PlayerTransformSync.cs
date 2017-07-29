@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Mechanics
 {
     [NetworkSettings(channel = 1, sendInterval = 0.01f)]
     public class PlayerTransformSync : NetworkBehaviour

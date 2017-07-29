@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Mechanics
 {
     
     public class House : MonoBehaviour

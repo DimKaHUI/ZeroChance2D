@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine.Networking;
+using ZeroChance2D.Assets.Scripts.Items;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Mechanics
 {
 
     public class PlayerEquipmentSync : NetworkBehaviour
     {
-        [SyncVar] public Equipment SyncEquipment = new Equipment(3);
+        [SyncVar] public Equipment SyncEquipment = new Equipment();
 
         void FixedUpdate()
         {
@@ -25,7 +23,7 @@ namespace ZeroChance2D
 
         void UpdateEquipment()
         {
-            gameObject.GetComponent<Human>().Equipment = SyncEquipment;
+            gameObject.GetComponent<Human>().Equipment = (Equipment)SyncEquipment.Clone();
         }
 
         [Client]

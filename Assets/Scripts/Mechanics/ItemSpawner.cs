@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using ZeroChance2D.Assets.Scripts.Items;
 using Random = UnityEngine.Random;
 
-namespace ZeroChance2D
+namespace ZeroChance2D.Assets.Scripts.Mechanics
 {
     [Serializable]
     public class ItemSpawnSetup
