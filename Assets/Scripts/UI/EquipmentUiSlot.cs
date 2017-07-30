@@ -19,6 +19,7 @@ namespace ZeroChance2D.Assets.Scripts.UI
             if (uiManager.PlayerHuman.Equipment[Slot] == null)
             {
                 uiManager.PlayerCtrl.CmdSetupEquipment((int)Slot, item);
+                uiManager.PlayerCtrl.CmdSetupItem(item, uiManager.PlayerHuman.gameObject, (HandSide)Slot, false);
                 return true;
             }
             return false;
