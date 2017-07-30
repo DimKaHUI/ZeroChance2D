@@ -348,8 +348,12 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
         [Command]
         public void CmdPutIntoStorage(GameObject storage, int slot)
         {
-            storage.GetComponent<Storage>().AddItem(playerHuman.Equipment[slot]);
-            playerHuman.Equipment[slot] = null;
+            if (storage.GetComponent<Storage>().AddItem(playerHuman.Equipment[slot]) == Storage.TransferResult.Success)
+            {
+                playerHuman.Equipment[slot].GetComponent<Item>().User = storage;
+                playerHuman.Equipment[slot].GetComponent<Item>().Visible = false;
+                playerHuman.Equipment[slot] = null;
+            }
         }
         
 
