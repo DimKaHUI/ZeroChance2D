@@ -218,11 +218,6 @@ namespace ZeroChance2D.Assets.Scripts
         {
             if (dragGameObject.GetComponent<Item>() != null)
             {
-                /*if (AttachedStorage.AddItem(dragGameObject) == Storage.TransferResult.Success)
-                {
-                    User.GetComponent<PlayerController>().CmdAddToStorage(AttachedStorage.gameObject, dragGameObject);
-                    return true;
-                }*/
                 User.GetComponent<PlayerController>()
                     .CmdPutIntoStorage(AttachedStorage.gameObject,
                         uiManager.PlayerHuman.Equipment.IndexOf(dragGameObject));
