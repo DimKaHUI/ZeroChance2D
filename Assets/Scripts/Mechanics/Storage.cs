@@ -108,6 +108,8 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
         [ServerCallback]
         public virtual TransferResult AddItem(GameObject itemObj)
         {
+            if(itemObj == gameObject)
+                return TransferResult.SelfStoring;
             if(itemObj.GetComponent<Item>() == null)
                 return TransferResult.NotAnItem;
             if (itemObj.GetComponent<Item>().ItemName != MandatoryItemName && MandatoryItemName != "")
@@ -165,7 +167,7 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
             target.AddItem(itemObj);
             return TransferResult.Success;
         }
-        public enum TransferResult { Success, SourceHasNoItem, NoFreeSpace, UnsuitableItem, TooLargeItem, NotAnItem, AlreadyContains }
+        public enum TransferResult { Success, SourceHasNoItem, NoFreeSpace, UnsuitableItem, TooLargeItem, NotAnItem, AlreadyContains, SelfStoring }
 
         public virtual void ShowGui(GameObject user)
         {
