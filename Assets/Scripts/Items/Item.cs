@@ -13,6 +13,7 @@ namespace ZeroChance2D.Assets.Scripts.Items
         public int SlotSize;
         public float Weight;
         public string ItemName;
+        public bool BackHoldable;
         [SyncVar]
         public GameObject User;
 
