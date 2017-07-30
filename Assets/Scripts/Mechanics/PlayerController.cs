@@ -156,14 +156,6 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
                 {
                     PickItem(ManipulatedItem);
                 }
-                if (Input.GetMouseButtonDown(0) && ManipulatedItem == null && Ui.IsCursorUponUi() == false)
-                {
-                    if (ActiveHand == HandSide.Left && playerHuman.Equipment[Equipment.EquipmentSlot.LeftHand] != null)
-                        PutItem(ActiveHand);
-                    if (ActiveHand == HandSide.Right && playerHuman.Equipment[Equipment.EquipmentSlot.RightHand] !=
-                        null)
-                        PutItem(ActiveHand);
-                }
 
                 #endregion
 
