@@ -76,7 +76,6 @@ namespace ZeroChance2D.Assets.Scripts.Items
             }
         }
 
-        [Server]
         void UpdateLight()
         {
             if (User == null)
