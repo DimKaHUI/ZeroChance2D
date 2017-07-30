@@ -30,6 +30,8 @@ namespace ZeroChance2D.Assets.Scripts.UI
 
         public static T FindComponentInParents<T>(this GameObject child) where T:class
         {
+            if (child == null)
+                return null;
             if (child.GetComponent<T>() != null)
                 return child.GetComponent<T>();
             if (child.transform.parent == null)
