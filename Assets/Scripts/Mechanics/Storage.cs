@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using ZeroChance2D.Assets.Scripts.Items;
+using ZeroChance2D.Assets.Scripts.UI;
 
 namespace ZeroChance2D.Assets.Scripts.Mechanics
 {
@@ -176,8 +177,8 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
             var gui = Instantiate(GuiPrefab);
             gui.transform.SetParent(canvas.transform);
             gui.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-            gui.GetComponent<CrateExplorer>().AttachedStorage = this;
-            gui.GetComponent<CrateExplorer>().User = user;
+            gui.GetComponent<IStorageUi>().AttachedStorage = this;
+            gui.GetComponent<IStorageUi>().User = user;
         }
     }
 }

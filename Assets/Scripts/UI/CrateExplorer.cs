@@ -5,16 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using ZeroChance2D.Assets.Scripts.Items;
 using ZeroChance2D.Assets.Scripts.Mechanics;
-using ZeroChance2D.Assets.Scripts.UI;
 
-namespace ZeroChance2D.Assets.Scripts
+namespace ZeroChance2D.Assets.Scripts.UI
 {
 
-    public class CrateExplorer : MonoBehaviour, IDropTarget
+    public class CrateExplorer : MonoBehaviour, IStorageUi
     {
         public GameObject ItemButtonPrefab;
-        public GameObject User;
-        public Storage AttachedStorage;
+        public GameObject User { get; set; }
+        public Storage AttachedStorage { get; set; }
         public Transform ContentField;
         public float ClosingDelay = 0.5f;
         public float UiUpdatedCooldown = 0.02f;

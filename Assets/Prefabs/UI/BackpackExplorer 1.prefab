@@ -21,8 +21,9 @@ GameObject:
   - component: {fileID: 224095611549796540}
   - component: {fileID: 222694042274371364}
   - component: {fileID: 114900764584762132}
-  - component: {fileID: 114481080303017610}
   - component: {fileID: 114427523350968680}
+  - component: {fileID: 114438217264719472}
+  - component: {fileID: 114009788769876794}
   m_Layer: 5
   m_Name: BackpackExplorer 1
   m_TagString: Untagged
@@ -30,6 +31,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114009788769876794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887814350347164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c51e11c90cd8c46bb98f6203210345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemButtonPrefab: {fileID: 1605024933242694, guid: 03f49b3341c84a6498c4f803a71fb329,
+    type: 2}
 --- !u!114 &114427523350968680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -43,7 +57,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &114481080303017610
+--- !u!114 &114438217264719472
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -51,7 +65,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1887814350347164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: -2095666955, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -59,12 +73,13 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 7
-  m_Spacing: -20
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 55, y: 55}
+  m_Spacing: {x: 2, y: 10}
+  m_Constraint: 1
+  m_ConstraintCount: 5
 --- !u!114 &114900764584762132
 MonoBehaviour:
   m_ObjectHideFlags: 1

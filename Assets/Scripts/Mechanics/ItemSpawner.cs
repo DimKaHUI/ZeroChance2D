@@ -34,6 +34,14 @@ namespace ZeroChance2D.Assets.Scripts.Mechanics
             return false;
         }
 
+        void Start()
+        {
+            if (gameObject.tag != "ItemSpawner")
+            {
+                Debug.LogError("The spawner's tag must be \"ItemSpawner\" if you want it to work.");
+            }
+        }
+
         public void Spawn()
         {
             if (calculateChance())
